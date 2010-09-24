@@ -164,6 +164,13 @@
 	yellowgreen		: [154, 205, 50]
     };
 
+    var mR=Math.round;
+    var mF=Math.floor;
+    var mS=Math.sqrt;
+    var mX=Math.min;
+    var mY=Math.max;
+    var mT=Math.random;
+
     var color_exp = [
     {// 616064010
 	regex: /^([1-9]\d*)$/,
@@ -250,7 +257,7 @@
 	l = _normalize(l, 100) / 100;
 
 	if (0 == s) {
-	    l = Math.round(l * 255);
+	    l = mR(l * 255);
 	    return [l, l, l, a];
 	}
 
@@ -267,9 +274,9 @@
 	var m = l + l - v;
 
 	return [
-	Math.round(255 *_hue(m, v, h + 1 / 3)),
-	Math.round(255 *_hue(m, v, h)),
-	Math.round(255 *_hue(m, v, h - 1 / 3)), a ];
+	mR(255 *_hue(m, v, h + 1 / 3)),
+	mR(255 *_hue(m, v, h)),
+	mR(255 *_hue(m, v, h - 1 / 3)), a ];
     }
 
     function _hsva(h,s,v,a) {
@@ -278,15 +285,15 @@
 	s = _normalize(s, 100) / 100;
 	v = _normalize(v, 100) / 100;
 
-	var hi = Math.floor(h);
+	var hi = mF(h);
 	var f = h - hi;
 
 	if (!(hi & 1)) f = 1 - f;
 
-	var m = Math.round(255 * (v * (1 - s)));
-	var n = Math.round(255 * (v * (1 - s * f)));
+	var m = mR(255 * (v * (1 - s)));
+	var n = mR(255 * (v * (1 - s * f)));
 
-	v = Math.round(255 * v);
+	v = mR(255 * v);
 
 	switch (hi) {
 	    case 6:
@@ -482,7 +489,7 @@
 
 		    var b = new xColor(table[i]).getHSL();
 
-		    var tmp = Math.sqrt(0.5 * Math.pow(a.h - b.h, 2) + 0.5 * Math.pow(a.s - b.s, 2) + Math.pow(a.l - b.l, 2));
+		    var tmp = mS(0.5 * (a.h - b.h) * (a.h - b.h) + 0.5 * (a.s - b.s) * (a.s - b.s) + (a.l - b.l) * (a.l - b.l));
 
 		    if (lowest === null || tmp < lowest) {
 			lowest = tmp;
@@ -518,8 +525,8 @@
 		var g = this.g / 255;
 		var b = this.b / 255;
 
-		var min = Math.min(r, g, b);
-		var max = Math.max(r, g, b);
+		var min = mX(r, g, b);
+		var max = mY(r, g, b);
 		var delta = max - min;
 
 		var h, s, l = (max + min) / 2;
@@ -548,9 +555,9 @@
 		    }
 		}
 		return {
-		    h: Math.round(h * 60),
-		    s: Math.round(s * 100),
-		    l: Math.round(l * 100),
+		    h: mR(h * 60),
+		    s: mR(s * 100),
+		    l: mR(l * 100),
 		    a: this.a
 		};
 	    }
@@ -565,8 +572,8 @@
 		var g = this.g / 255;
 		var b = this.b / 255;
 
-		var min = Math.min(r, g, b);
-		var max = Math.max(r, g, b);
+		var min = mX(r, g, b);
+		var max = mY(r, g, b);
 		var delta = max - min;
 
 		var h, s, v = max;
@@ -596,9 +603,9 @@
 		}
 
 		return {
-		    h : Math.round(h * 360),
-		    s: Math.round(s * 100),
-		    v: Math.round(v * 100),
+		    h: mR(h * 360),
+		    s: mR(s * 100),
+		    v: mR(v * 100),
 		    a: this.a
 		};
 	    }
@@ -651,7 +658,7 @@
 
 	    $.fx.step[attr] = function(fx) {
 
-		if (0 == fx.state) {
+		if (typeof fx.xinit === undefined) {
 
 		    if (typeof fx.end === "string" && -1 !== fx.end.indexOf(";")) {
 
@@ -677,18 +684,7 @@
 			fx.end = new xColor(fx.end);
 		    }
 		
-		    if (null !== fx.start) {
-			if (0 == (fx.start.r | fx.start.g | fx.start.b | fx.start.a)) {
-			    fx.start.r = fx.end.r;
-			    fx.start.g = fx.end.g;
-			    fx.start.b = fx.end.b;
-			}
-			if (0 == (fx.end.r | fx.end.g | fx.end.b | fx.end.a)) {
-			    fx.end.r = fx.start.r;
-			    fx.end.g = fx.start.g;
-			    fx.end.b = fx.start.b;
-			}
-		    }
+		    fx.xinit = 1;
 		}
 
 		var S = fx.start;
@@ -810,9 +806,9 @@
 	this.random = function () {
 
 	    var c = new xColor([
-		Math.floor(255 * Math.random()),
-		Math.floor(255 * Math.random()),
-		Math.floor(255 * Math.random())
+		mF(255 * mT()),
+		mF(255 * mT()),
+		mF(255 * mT())
 		]);
 
 	    if (c.success) {
@@ -845,11 +841,11 @@
 		    o/= 100;
 		}
 
-		o = Math.max(o - 1 + b.a, 0);
+		o = mY(o - 1 + b.a, 0);
 
-		a.r = Math.round((b.r - a.r) * o + a.r);
-		a.g = Math.round((b.g - a.g) * o + a.g);
-		a.b = Math.round((b.b - a.b) * o + a.b);
+		a.r = mR((b.r - a.r) * o + a.r);
+		a.g = mR((b.g - a.g) * o + a.g);
+		a.b = mR((b.b - a.b) * o + a.b);
 
 		return a;
 	    }
@@ -873,7 +869,7 @@
 		    default:
 			v = c.r * .3 + c.g * .59 + c.b * .11;
 		}
-		c.r = c.g = c.b = Math.min(Math.floor(v), 255);
+		c.r = c.g = c.b = mX(mF(v), 255);
 
 		return c;
 	    }
@@ -900,7 +896,7 @@
 
 	    if (a.success & b.success) {
 		// Approximation attempt of http://www.compuphase.com/cmetric.htm
-		return Math.sqrt(3 * (b.r - a.r) * (b.r - a.r) + 4 * (b.g - a.g) * (b.g - a.g) + 2 * (b.b - a.b) * (b.b - a.b));
+		return mS(3 * (b.r - a.r) * (b.r - a.r) + 4 * (b.g - a.g) * (b.g - a.g) + 2 * (b.b - a.b) * (b.b - a.b));
 	    }
 	    return null;
 	}
@@ -943,7 +939,7 @@
 	    if (a.success & b.success) {
 
 		for (var i = 0; i < 6; i++) {
-		    if (Math.random() < .5) {
+		    if (mT() < .5) {
 			mask|= 0x0f << (i << 2);
 		    }
 		}
@@ -1010,9 +1006,9 @@
 	    var b = new xColor(y);
 
 	    if (a.success & b.success) {
-		a.r = Math.floor(a.r / 255 * b.r);
-		a.g = Math.floor(a.g / 255 * b.g);
-		a.b = Math.floor(a.b / 255 * b.b);
+		a.r = mF(a.r / 255 * b.r);
+		a.g = mF(a.g / 255 * b.g);
+		a.b = mF(a.b / 255 * b.b);
 		return a;
 	    }
 	    return null;
@@ -1068,9 +1064,9 @@
 
 	    if (a.success & b.success) {
 
-		a.r = Math.floor(a.r + ((b.r - a.r) / deg) * level);
-		a.g = Math.floor(a.g + ((b.g - a.g) / deg) * level);
-		a.b = Math.floor(a.b + ((b.b - a.b) / deg) * level);
+		a.r = mF(a.r + ((b.r - a.r) / deg) * level);
+		a.g = mF(a.g + ((b.g - a.g) / deg) * level);
+		a.b = mF(a.b + ((b.b - a.b) / deg) * level);
 
 		return a;
 	    }
@@ -1081,7 +1077,7 @@
 
 	    if (ndx > size) return null;
 
-	    var e = Math.floor(ndx * (arr.length - 1) / size);
+	    var e = mF(ndx * (arr.length - 1) / size);
 	    var m = (ndx - size * e / (arr.length - 1)) / size;
 
 	    var a = new xColor(arr[e]);
@@ -1089,9 +1085,9 @@
 
 	    if (a.success & b.success) {
 
-		a.r = Math.floor(a.r + arr.length * (b.r - a.r) * m);
-		a.g = Math.floor(a.g + arr.length * (b.g - a.g) * m);
-		a.b = Math.floor(a.b + arr.length * (b.b - a.b) * m);
+		a.r = mF(a.r + arr.length * (b.r - a.r) * m);
+		a.g = mF(a.g + arr.length * (b.g - a.g) * m);
+		a.b = mF(a.b + arr.length * (b.b - a.b) * m);
 
 		return a;
 	    }
