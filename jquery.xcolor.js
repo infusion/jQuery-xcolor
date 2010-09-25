@@ -5,7 +5,7 @@
  * Date: 06/21/2010
  *
  * @author Robert Eisele
- * @version 1.1
+ * @version 1.2
  *
  * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
@@ -662,62 +662,59 @@
 
     $.each(['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'outlineColor'], function(i, attr) {
 
-	if ($.support.opacity) {
+	$.fx.step[attr] = function(fx) {
 
-	    $.fx.step[attr] = function(fx) {
+	    if (fx.xinit === undefined) {
 
-		if (typeof fx.xinit === undefined) {
+		if (typeof fx.end === "string" && -1 !== fx.end.indexOf(";")) {
 
-		    if (typeof fx.end === "string" && -1 !== fx.end.indexOf(";")) {
+		    var x, arr = fx.end.split(";");
 
-			var x, arr = fx.end.split(";");
+		    if (arr.length > 2) {
 
-			if (arr.length > 2) {
-
-			    for (x in arr) {
-				if (-1 === arr[x].indexOf('native')) {
-				    arr[x] = new xColor(arr[x]);
-				} else {
-				    arr[x] = findColor(fx.elem, attr);
-				}
+			for (x in arr) {
+			    if (-1 === arr[x].indexOf('native')) {
+				arr[x] = new xColor(arr[x]);
+			    } else {
+				arr[x] = findColor(fx.elem, attr);
 			    }
-			    fx.start = null;
-			    fx.end = arr;
-			} else {
-			    fx.start = new xColor(arr[0]);
-			    fx.end = new xColor(arr[1]);
 			}
+			fx.start = null;
+			fx.end = arr;
 		    } else {
-			fx.start = findColor(fx.elem, attr);
-			fx.end = new xColor(fx.end);
+			fx.start = new xColor(arr[0]);
+			fx.end = new xColor(arr[1]);
 		    }
-		
-		    fx.xinit = 1;
-		}
-
-		var S = fx.start;
-		var E = fx.end;
-		var P = fx.pos;
-
-		if (null === S) {
-		    var m = P * (E.length - 1), n = P < 1 ? m | 0 : E.length - 2;
-		    S = E[n];
-		    E = E[n + 1];
-		    P = m - n;
-		}
-
-		if ($.support.opacity) {
-		    fx.elem.style[attr] = "rgba("
-		    + ((S.r + (E.r - S.r) * P)|0) + ","
-		    + ((S.g + (E.g - S.g) * P)|0) + ","
-		    + ((S.b + (E.b - S.b) * P)|0) + ","
-		    + ((S.a + (E.a - S.a) * P)) + ")";
 		} else {
-		    fx.elem.style[attr] = "rgb("
-		    + ((S.r + (E.r - S.r) * P)|0) + ","
-		    + ((S.g + (E.g - S.g) * P)|0) + ","
-		    + ((S.b + (E.b - S.b) * P)|0) + ")";
+		    fx.start = findColor(fx.elem, attr);
+		    fx.end = new xColor(fx.end);
 		}
+		
+		fx.xinit = 1;
+	    }
+
+	    var S = fx.start;
+	    var E = fx.end;
+	    var P = fx.pos;
+
+	    if (null === S) {
+		var m = P * (E.length - 1), n = P < 1 ? m | 0 : E.length - 2;
+		S = E[n];
+		E = E[n + 1];
+		P = m - n;
+	    }
+
+	    if ($.support.opacity) {
+		fx.elem.style[attr] = "rgba("
+		+ ((S.r + (E.r - S.r) * P)|0) + ","
+		+ ((S.g + (E.g - S.g) * P)|0) + ","
+		+ ((S.b + (E.b - S.b) * P)|0) + ","
+		+ ((S.a + (E.a - S.a) * P)) + ")";
+	    } else {
+		fx.elem.style[attr] = "rgb("
+		+ ((S.r + (E.r - S.r) * P)|0) + ","
+		+ ((S.g + (E.g - S.g) * P)|0) + ","
+		+ ((S.b + (E.b - S.b) * P)|0) + ")";
 	    }
 	}
     });
