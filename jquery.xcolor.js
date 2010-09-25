@@ -1,167 +1,167 @@
 /**
-* jQuery xcolor
-* Copyright (c) 2010, Robert Eisele (robert@xarg.org)
-* Dual licensed under the MIT or GPL Version 2 licenses.
-* Date: 06/21/2010
-*
-* @author Robert Eisele
-* @version 1.1
-*
-* @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
-**/
+ * jQuery xcolor
+ * Copyright (c) 2010, Robert Eisele (robert@xarg.org)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Date: 06/21/2010
+ *
+ * @author Robert Eisele
+ * @version 1.1
+ *
+ * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
+ **/
 
 (function ($) {
 
     // http://www.w3.org/TR/css3-color/#svg-color
     var color_names = {
-	transparent		: [0, 0, 0, 0],
-	aliceblue		: [240, 248, 255],
-	antiquewhite		: [250, 235, 215],
-	aqua			: [0, 255, 255],
-	aquamarine		: [127, 255, 212],
-	azure			: [240, 255, 255],
-	beige			: [245, 245, 220],
-	bisque			: [255, 228, 196],
-	black			: [0, 0, 0],
-	blanchedalmond		: [255, 235, 205],
-	blue			: [0, 0, 255],
-	blueviolet		: [138, 43, 226],
-	brown			: [165, 42, 42],
-	burlywood		: [222, 184, 135],
-	cadetblue		: [95, 158, 160],
-	chartreuse		: [127, 255, 0],
-	chocolate		: [210, 105, 30],
-	coral			: [255, 127, 80],
-	cornflowerblue		: [100, 149, 237],
-	cornsilk		: [255, 248, 220],
-	crimson			: [220, 20, 60],
-	cyan			: [0, 255, 255],
-	darkblue		: [0, 0, 139],
-	darkcyan		: [0, 139, 139],
-	darkgoldenrod		: [184, 134, 11],
-	darkgray		: [169, 169, 169],
-	darkgreen		: [0, 100, 0],
-	darkgrey		: [169, 169, 169],
-	darkkhaki		: [189, 183, 107],
-	darkmagenta		: [139, 0, 139],
-	darkolivegreen		: [85, 107, 47],
-	darkorange		: [255, 140, 0],
-	darkorchid		: [153, 50, 204],
-	darkred			: [139, 0, 0],
-	darksalmon		: [233, 150, 122],
-	darkseagreen		: [143, 188, 143],
-	darkslateblue		: [72, 61, 139],
-	darkslategray		: [47, 79, 79],
-	darkslategrey		: [47, 79, 79],
-	darkturquoise		: [0, 206, 209],
-	darkviolet		: [148, 0, 211],
-	deeppink		: [255, 20, 147],
-	deepskyblue		: [0, 191, 255],
-	dimgray			: [105, 105, 105],
-	dimgrey			: [105, 105, 105],
-	dodgerblue		: [30, 144, 255],
-	firebrick		: [178, 34, 34],
-	floralwhite		: [255, 250, 240],
-	forestgreen		: [34, 139, 34],
-	fuchsia			: [255, 0, 255],
-	gainsboro		: [220, 220, 220],
-	ghostwhite		: [248, 248, 255],
-	gold			: [255, 215, 0],
-	goldenrod		: [218, 165, 32],
-	gray			: [128, 128, 128],
-	green			: [0, 128, 0],
-	greenyellow		: [173, 255, 47],
-	grey			: [128, 128, 128],
-	honeydew		: [240, 255, 240],
-	hotpink			: [255, 105, 180],
-	indianred		: [205, 92, 92],
-	indigo			: [75, 0, 130],
-	ivory			: [255, 255, 240],
-	khaki			: [240, 230, 140],
-	lavender		: [230, 230, 250],
-	lavenderblush		: [255, 240, 245],
-	lawngreen		: [124, 252, 0],
-	lemonchiffon		: [255, 250, 205],
-	lightblue		: [173, 216, 230],
-	lightcoral		: [240, 128, 128],
-	lightcyan		: [224, 255, 255],
-	lightgoldenrodyellow	: [250, 250, 210],
-	lightgray		: [211, 211, 211],
-	lightgreen		: [144, 238, 144],
-	lightgrey		: [211, 211, 211],
-	lightpink		: [255, 182, 193],
-	lightsalmon		: [255, 160, 122],
-	lightseagreen		: [32, 178, 170],
-	lightskyblue		: [135, 206, 250],
-	lightslategray		: [119, 136, 153],
-	lightslategrey		: [119, 136, 153],
-	lightsteelblue		: [176, 196, 222],
-	lightyellow		: [255, 255, 224],
-	lime			: [0, 255, 0],
-	limegreen		: [50, 205, 50],
-	linen			: [250, 240, 230],
-	magenta			: [255, 0, 255],
-	maroon			: [128, 0, 0],
-	mediumaquamarine	: [102, 205, 170],
-	mediumblue		: [0, 0, 205],
-	mediumorchid		: [186, 85, 211],
-	mediumpurple		: [147, 112, 219],
-	mediumseagreen		: [60, 179, 113],
-	mediumslateblue		: [123, 104, 238],
-	mediumspringgreen	: [0, 250, 154],
-	mediumturquoise		: [72, 209, 204],
-	mediumvioletred		: [199, 21, 133],
-	midnightblue		: [25, 25, 112],
-	mintcream		: [245, 255, 250],
-	mistyrose		: [255, 228, 225],
-	moccasin		: [255, 228, 181],
-	navajowhite		: [255, 222, 173],
-	navy			: [0, 0, 128],
-	oldlace			: [253, 245, 230],
-	olive			: [128, 128, 0],
-	olivedrab		: [107, 142, 35],
-	orange			: [255, 165, 0],
-	orangered		: [255, 69, 0],
-	orchid			: [218, 112, 214],
-	palegoldenrod		: [238, 232, 170],
-	palegreen		: [152, 251, 152],
-	paleturquoise		: [175, 238, 238],
-	palevioletred		: [219, 112, 147],
-	papayawhip		: [255, 239, 213],
-	peachpuff		: [255, 218, 185],
-	peru			: [205, 133, 63],
-	pink			: [255, 192, 203],
-	plum			: [221, 160, 221],
-	powderblue		: [176, 224, 230],
-	purple			: [128, 0, 128],
-	red			: [255, 0, 0],
-	rosybrown		: [188, 143, 143],
-	royalblue		: [65, 105, 225],
-	saddlebrown		: [139, 69, 19],
-	salmon			: [250, 128, 114],
-	sandybrown		: [244, 164, 96],
-	seagreen		: [46, 139, 87],
-	seashell		: [255, 245, 238],
-	sienna			: [160, 82, 45],
-	silver			: [192, 192, 192],
-	skyblue			: [135, 206, 235],
-	slateblue		: [106, 90, 205],
-	slategray		: [112, 128, 144],
-	slategrey		: [112, 128, 144],
-	snow			: [255, 250, 250],
-	springgreen		: [0, 255, 127],
-	steelblue		: [70, 130, 180],
-	tan			: [210, 180, 140],
-	teal			: [0, 128, 128],
-	thistle			: [216, 191, 216],
-	tomato			: [255, 99, 71],
-	turquoise		: [64, 224, 208],
-	violet			: [238, 130, 238],
-	wheat			: [245, 222, 179],
-	white			: [255, 255, 255],
-	whitesmoke		: [245, 245, 245],
-	yellow			: [255, 255, 0],
-	yellowgreen		: [154, 205, 50]
+	transparent: 16777216,
+	aliceblue: 15792383,
+	antiquewhite: 16444375,
+	aqua: 65535,
+	aquamarine: 8388564,
+	azure: 15794175,
+	beige: 16119260,
+	bisque: 16770244,
+	black: 0,
+	blanchedalmond: 16772045,
+	blue: 255,
+	blueviolet: 9055202,
+	brown: 10824234,
+	burlywood: 14596231,
+	cadetblue: 6266528,
+	chartreuse: 8388352,
+	chocolate: 13789470,
+	coral: 16744272,
+	cornflowerblue: 6591981,
+	cornsilk: 16775388,
+	crimson: 14423100,
+	cyan: 65535,
+	darkblue: 139,
+	darkcyan: 35723,
+	darkgoldenrod: 12092939,
+	darkgray: 11119017,
+	darkgreen: 25600,
+	darkgrey: 11119017,
+	darkkhaki: 12433259,
+	darkmagenta: 9109643,
+	darkolivegreen: 5597999,
+	darkorange: 16747520,
+	darkorchid: 10040012,
+	darkred: 9109504,
+	darksalmon: 15308410,
+	darkseagreen: 9419919,
+	darkslateblue: 4734347,
+	darkslategray: 3100495,
+	darkslategrey: 3100495,
+	darkturquoise: 52945,
+	darkviolet: 9699539,
+	deeppink: 16716947,
+	deepskyblue: 49151,
+	dimgray: 6908265,
+	dimgrey: 6908265,
+	dodgerblue: 2003199,
+	firebrick: 11674146,
+	floralwhite: 16775920,
+	forestgreen: 2263842,
+	fuchsia: 16711935,
+	gainsboro: 14474460,
+	ghostwhite: 16316671,
+	gold: 16766720,
+	goldenrod: 14329120,
+	gray: 8421504,
+	green: 32768,
+	greenyellow: 11403055,
+	grey: 8421504,
+	honeydew: 15794160,
+	hotpink: 16738740,
+	indianred: 13458524,
+	indigo: 4915330,
+	ivory: 16777200,
+	khaki: 15787660,
+	lavender: 15132410,
+	lavenderblush: 16773365,
+	lawngreen: 8190976,
+	lemonchiffon: 16775885,
+	lightblue: 11393254,
+	lightcoral: 15761536,
+	lightcyan: 14745599,
+	lightgoldenrodyellow: 16448210,
+	lightgray: 13882323,
+	lightgreen: 9498256,
+	lightgrey: 13882323,
+	lightpink: 16758465,
+	lightsalmon: 16752762,
+	lightseagreen: 2142890,
+	lightskyblue: 8900346,
+	lightslategray: 7833753,
+	lightslategrey: 7833753,
+	lightsteelblue: 11584734,
+	lightyellow: 16777184,
+	lime: 65280,
+	limegreen: 3329330,
+	linen: 16445670,
+	magenta: 16711935,
+	maroon: 8388608,
+	mediumaquamarine: 6737322,
+	mediumblue: 205,
+	mediumorchid: 12211667,
+	mediumpurple: 9662683,
+	mediumseagreen: 3978097,
+	mediumslateblue: 8087790,
+	mediumspringgreen: 64154,
+	mediumturquoise: 4772300,
+	mediumvioletred: 13047173,
+	midnightblue: 1644912,
+	mintcream: 16121850,
+	mistyrose: 16770273,
+	moccasin: 16770229,
+	navajowhite: 16768685,
+	navy: 128,
+	oldlace: 16643558,
+	olive: 8421376,
+	olivedrab: 7048739,
+	orange: 16753920,
+	orangered: 16729344,
+	orchid: 14315734,
+	palegoldenrod: 15657130,
+	palegreen: 10025880,
+	paleturquoise: 11529966,
+	palevioletred: 14381203,
+	papayawhip: 16773077,
+	peachpuff: 16767673,
+	peru: 13468991,
+	pink: 16761035,
+	plum: 14524637,
+	powderblue: 11591910,
+	purple: 8388736,
+	red: 16711680,
+	rosybrown: 12357519,
+	royalblue: 4286945,
+	saddlebrown: 9127187,
+	salmon: 16416882,
+	sandybrown: 16032864,
+	seagreen: 3050327,
+	seashell: 16774638,
+	sienna: 10506797,
+	silver: 12632256,
+	skyblue: 8900331,
+	slateblue: 6970061,
+	slategray: 7372944,
+	slategrey: 7372944,
+	snow: 16775930,
+	springgreen: 65407,
+	steelblue: 4620980,
+	tan: 13808780,
+	teal: 32896,
+	thistle: 14204888,
+	tomato: 16737095,
+	turquoise: 4251856,
+	violet: 15631086,
+	wheat: 16113331,
+	white: 16777215,
+	whitesmoke: 16119285,
+	yellow: 16776960,
+	yellowgreen: 10145074
     };
 
     var mR=Math.round;
@@ -171,248 +171,256 @@
     var mY=Math.max;
     var mT=Math.random;
 
-    var color_exp = [
-    {// 616064010
-	regex: /^([1-9]\d*)$/,
-	parse: function (part) {
-	    c = parseInt(part[1], 10);
-	    return [ (c >> 16) & 0xff, (c >> 8) & 0xff, c & 0xff, (_normalize((c >> 24) & 0xff, 100) / 100) || 1];
-	}
-    }, {// #ff9000, #ff0000
-	regex: /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/,
-	parse: function (part) {
-	    return [
-	    parseInt(part[1], 16),
-	    parseInt(part[2], 16),
-	    parseInt(part[3], 16)];
-	}
-    }, {// #f00, 000
-	regex: /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/,
-	parse: function (part) {
-	    return [
-	    parseInt(part[1] + part[1], 16),
-	    parseInt(part[2] + part[2], 16),
-	    parseInt(part[3] + part[3], 16)];
-	}
-    }, {// rgb(1, 234, 56)
-	regex: /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/,
-	parse: function (part) {
-	    return [
-	    parseInt(part[1], 10),
-	    parseInt(part[2], 10),
-	    parseInt(part[3], 10),
-	    part[5] ? parseFloat(part[5]) : 1
-	    ];
-	}
-    }, {// 1, 234, 56
-	regex: /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/,
-	parse: function (part) {
-	    return [
-	    parseInt(part[1], 10),
-	    parseInt(part[2], 10),
-	    parseInt(part[3], 10),
-	    part[5] ? parseFloat(part[5]) : 1
-	    ];
-	}
-    }, {// hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
-	regex: /^hs[bv]a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/,
-	parse: function (part) {
-
-	    return _hsva(parseInt(part[1], 10), parseInt(part[2], 10), parseInt(part[3], 10), part[5] ? parseFloat(part[5]) : 1);
-	}
-    }, {// hsl(64, 40, 16) in [0, 360], [0,100], [0,100]
-	regex: /^hsla?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/,
-	parse: function (part) {
-
-	    return _hsla(parseInt(part[1], 10), parseInt(part[2], 10), parseInt(part[3], 10), part[5] ? parseFloat(part[5]) : 1);
-	}
-    }];
-
-    function _normalize(n, s) {
-
-	/**
-	  * Some value.
-	  * @type {number|undefined}
-	  */
-	if (undefined === s) {
-	    s = 255;
-	}
-
-	if (isNaN(n) || n <= 0) {
-	    return 0;
-	}
-	if (s < n) {
-	    return s;
-	}
-	if (n <= 1) {
-	    return n * s;
-	}
-	return n;
-    }
-
-    function _hsla(h,s,l,a) {
-
-	h = _normalize(h, 360) / 360;
-	s = _normalize(s, 100) / 100;
-	l = _normalize(l, 100) / 100;
-
-	if (0 == s) {
-	    l = mR(l * 255);
-	    return [l, l, l, a];
-	}
-
-	function _hue(v1, v2, h) {
-	    if (h < 0) h++;
-	    if (h > 1) h--;
-	    if (6 * h < 1) return v1 + (v2 - v1) * 6 * h;
-	    if (2 * h < 1) return v2;
-	    if (3 * h < 2) return v1 + (v2 - v1) * (4 - 6 * h);
-	    return v1;
-	}
-
-	var v = l < .5 ? (l * (1 + s)) : (l + s - l * s);
-	var m = l + l - v;
-
-	return [
-	mR(255 *_hue(m, v, h + 1 / 3)),
-	mR(255 *_hue(m, v, h)),
-	mR(255 *_hue(m, v, h - 1 / 3)), a ];
-    }
-
-    function _hsva(h,s,v,a) {
-
-	h = _normalize(h, 360) / 60;
-	s = _normalize(s, 100) / 100;
-	v = _normalize(v, 100) / 100;
-
-	var hi = mF(h);
-	var f = h - hi;
-
-	if (!(hi & 1)) f = 1 - f;
-
-	var m = mR(255 * (v * (1 - s)));
-	var n = mR(255 * (v * (1 - s * f)));
-
-	v = mR(255 * v);
-
-	switch (hi) {
-	    case 6:
-	    case 0:
-		return [v, n, m, a];
-	    case 1:
-		return [n, v, m, a];
-	    case 2:
-		return [m, v, n, a];
-	    case 3:
-		return [m, n, v, a];
-	    case 4:
-		return [n, m, v, a];
-	    case 5:
-		return [v, m, n, a];
-	}
-    }
-
     /**
-      * @constructor
-      */
+     * @constructor
+     */
     function xColor(color) {
+
+	function _normalize(n, s) {
+
+	    var m;
+
+	    if (undefined === s) {
+		n = parseInt(n, 10);
+		s = 255;
+		m = 255;
+	    } else {
+
+		if (1 === s) {
+
+		    if (undefined === n) {
+			return 1;
+		    }
+
+		    s = 100;
+		    m = 1;
+		} else {
+		    m = s;
+		}
+
+		n = parseFloat(n);
+	    }
+
+	    if (isNaN(n) || n <= 0) {
+		return 0;
+	    }
+
+	    if (s < n) {
+		return m;
+	    }
+
+	    if (n <= 1) {
+		if (m === 1) {
+		    return n;
+		} else {
+		    return (n * m) | 0;
+		}
+	    }
+	    return (n * m / s);
+	}
+
+	function _hsla(h,s,l) {
+
+	    h = _normalize(h, 360) / 360;
+	    s = _normalize(s, 1);
+	    l = _normalize(l, 1);
+
+	    if (0 == s) {
+		l = mR(l * 255);
+		return [l, l, l];
+	    }
+
+	    function _hue(v1, v2, h) {
+		if (h < 0) h++;
+		if (h > 1) h--;
+		if (6 * h < 1) return v1 + (v2 - v1) * 6 * h;
+		if (2 * h < 1) return v2;
+		if (3 * h < 2) return v1 + (v2 - v1) * (4 - 6 * h);
+		return v1;
+	    }
+
+	    var v = l < .5 ? (l * (1 + s)) : (l + s - l * s);
+	    var m = l + l - v;
+
+	    return [
+	    mR(255 *_hue(m, v, h + 1 / 3)),
+	    mR(255 *_hue(m, v, h)),
+	    mR(255 *_hue(m, v, h - 1 / 3)) ];
+	}
+
+	function _hsva(h,s,v) {
+
+	    h = _normalize(h, 360) / 60;
+	    s = _normalize(s, 1);
+	    v = _normalize(v, 1);
+
+	    var hi = mF(h);
+	    var f = h - hi;
+
+	    if (!(hi & 1)) f = 1 - f;
+
+	    var m = mR(255 * (v * (1 - s)));
+	    var n = mR(255 * (v * (1 - s * f)));
+
+	    v = mR(255 * v);
+
+	    switch (hi) {
+		case 6:
+		case 0:
+		    return [v, n, m];
+		case 1:
+		    return [n, v, m];
+		case 2:
+		    return [m, v, n];
+		case 3:
+		    return [m, n, v];
+		case 4:
+		    return [n, m, v];
+		case 5:
+		    return [v, m, n];
+	    }
+	}
 
 	this.setColor = function (color) {
 
-	    this.r = null;
-	    this.g = null;
-	    this.b = null;
-	    this.a = 1;
+	    this.success = true;
 
-	    this.success = false;
+	    if (typeof color === "number") {
 
-	    function A(o, c) {
-		o.success = true;
-
-		if (undefined !== c) o.a = _normalize(c, 100) / 100;
+		this.a =((color >> 24) & 0xff) / 255;
+		this.r = (color >> 16) & 0xff;
+		this.g = (color >>  8) & 0xff;
+		this.b = (color      ) & 0xff;
+		return;
 	    }
 
-	    if (typeof color == "object") {
+	    if (typeof color === "object") {
 
 		if (color[0] !== undefined && color[1] !== undefined && color[2] !== undefined) {
+		    this.a = _normalize(color[3], 1);
 		    this.r = _normalize(color[0]);
 		    this.g = _normalize(color[1]);
 		    this.b = _normalize(color[2]);
-
-		    A(this, color[3]);
-
+		    return;
 		} else if (color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+		    this.a = _normalize(color.a, 1);
 		    this.r = _normalize(color.r);
 		    this.g = _normalize(color.g);
 		    this.b = _normalize(color.b);
-
-		    A(this, color.a);
-
+		    return;
 		} else if (color.v !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var set =_hsva(color.h, color.s, color.v, 1);
-		    this.r = set[0];
-		    this.g = set[1];
-		    this.b = set[2];
-
-		    A(this, color.a);
-
+		    var rgb = _hsva(color.h, color.s, color.v, 1);
+		    this.a = _normalize(color.a, 1);
+		    this.r = rgb[0];
+		    this.g = rgb[1];
+		    this.b = rgb[2];
+		    return;
 		} else if (color.l !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var set =_hsla(color.h, color.s, color.l, 1);
-		    this.r = set[0];
-		    this.g = set[1];
-		    this.b = set[2];
-
-		    A(this, color.a);
+		    var rgb =_hsla(color.h, color.s, color.l, 1);
+		    this.a = _normalize(color.a, 1);
+		    this.r = rgb[0];
+		    this.g = rgb[1];
+		    this.b = rgb[2];
+		    return;
 		}
+	    }
+
+	    if (typeof color !== "string") {
+		this.success = false;
 		return;
 	    }
 
-	    if (typeof color == "number") {
-		this.success = true;
+	    color = color.toLowerCase().replace(/[^a-z0-9,.()#%]/g, '');
 
-		this.r = (color >> 16) & 0xff;
-		this.g = (color >> 8) & 0xff;
-		this.b = color & 0xff;
-
-		return;
-	    }
-
-	    if (typeof color != "string") {
-		return;
-	    }
-
-	    color = color.toLowerCase().replace(/[^a-z0-9,.()#]/g, '');
+	    var part, c;
 
 	    if (undefined !== color_names[color]) {
 
-		var c = color_names[color];
+		c = color_names[color];
 
-		this.r = c[0];
-		this.g = c[1];
-		this.b = c[2];
-		A(this, c[3]);
-
+		this.a =(!((c >> 24) & 0xff))|0;
+		this.r =  ((c >> 16) & 0xff);
+		this.g =  ((c >>  8) & 0xff);
+		this.b =  ((c      ) & 0xff);
+		return;
+	    }
+	    
+	    // 53892983
+	    if (part = /^([1-9]\d*)$/.exec(color)) {
+		   
+		c = parseInt(part[1], 10);
+		   
+		this.a =(((c >> 24) & 0xff) || 255) / 255;
+		this.r = ((c >> 16) & 0xff);
+		this.g = ((c >>  8) & 0xff);
+		this.b = ((c      ) & 0xff);
 		return;
 	    }
 
-	    var exp = color_exp;
-
-	    for (var i = 0; i < exp.length; i++) {
-
-		var parts = exp[i].regex.exec(color);
-
-		if (parts) {
-
-		    var ret = exp[i].parse(parts);
-
-		    this.r = _normalize(ret[0]);
-		    this.g = _normalize(ret[1]);
-		    this.b = _normalize(ret[2]);
-		    A(this, ret[3]);
-
-		    break;
-		}
+	    // #ff9000, #ff0000
+	    if (part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color)) {
+		this.a = 1;
+		this.r = parseInt(part[1], 16);
+		this.g = parseInt(part[2], 16);
+		this.b = parseInt(part[3], 16);
+		return;
 	    }
+
+	    // #f00, fff
+	    if (part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color)) {
+		this.a = 1;
+		this.r = parseInt(part[1] + part[1], 16);
+		this.g = parseInt(part[2] + part[2], 16);
+		this.b = parseInt(part[3] + part[3], 16);
+		return;
+	    }
+
+	    // rgb(1, 234, 56)
+	    if (part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
+		this.a = _normalize(part[5], 1);
+		this.r = _normalize(part[1]);
+		this.g = _normalize(part[2]);
+		this.b = _normalize(part[3]);
+		return;
+	    }
+
+	    // rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
+	    if (part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color)) {
+		this.a = _normalize(part[5], 1);
+		this.r = mR(_normalize(part[1], 100) * 2.55);
+		this.g = mR(_normalize(part[2], 100) * 2.55);
+		this.b = mR(_normalize(part[3], 100) * 2.55);
+		return;
+	    }
+
+	    // hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
+	    if (part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
+		var func;
+		if (part[1] == "l") {
+		    func = _hsla;
+		} else {
+		    func = _hsva;
+		}
+
+		c = func(parseInt(part[2], 10), parseInt(part[3], 10), parseInt(part[4], 10));
+
+		this.a = _normalize(part[6], 1);
+		this.r = c[0];
+		this.g = c[1];
+		this.b = c[2];
+		return;
+	    }
+
+	    // 1, 234, 56
+	    if (part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color)) {
+		this.a = _normalize(part[5], 1);
+		this.r = _normalize(part[1]);
+		this.g = _normalize(part[2]);
+		this.b = _normalize(part[3]);
+		return;
+	    }
+
+	    this.success = false;
 	}
 
 	this.getColor = function (type) {
@@ -469,7 +477,7 @@
 	this.getArray = function () {
 
 	    if (this.success) {
-		return [this.r, this.g, this.b];
+		return [this.r, this.g, this.b, this.a];
 	    }
 	    return null;
 	}
@@ -487,17 +495,17 @@
 
 		for (var i in table) {
 
+		    /* We do not handle transparency */
 		    var b = new xColor(table[i]).getHSL();
 
 		    var tmp = mS(0.5 * (a.h - b.h) * (a.h - b.h) + 0.5 * (a.s - b.s) * (a.s - b.s) + (a.l - b.l) * (a.l - b.l));
 
-		    if (lowest === null || tmp < lowest) {
+		    if (null === lowest || tmp < lowest) {
 			lowest = tmp;
 			lowest_ndx = i;
 		    }
 		}
 		return lowest_ndx;
-
 	    }
 	    return null;
 	}
@@ -753,8 +761,8 @@
     }
 
     /**
-	* @constructor
-	*/
+     * @constructor
+     */
     function xColorMix() {
 
 	this.test = function (col) {
