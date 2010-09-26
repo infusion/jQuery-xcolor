@@ -165,7 +165,6 @@
     };
 
     var mR=Math.round;
-    var mF=Math.floor;
     var mS=Math.sqrt;
     var mX=Math.min;
     var mY=Math.max;
@@ -254,7 +253,7 @@
 	    s = _normalize(s, 1);
 	    v = _normalize(v, 1);
 
-	    var hi = mF(h);
+	    var hi = h|0;
 	    var f = h - hi;
 
 	    if (!(hi & 1)) f = 1 - f;
@@ -477,7 +476,7 @@
 	this.getArray = function () {
 
 	    if (this.success) {
-		return [this.r, this.g, this.b, this.a];
+		return [this.r, this.g, this.b, this.a * 100 | 0];
 	    }
 	    return null;
 	}
@@ -645,9 +644,12 @@
 	    return null;
 	}
 
-	this.getInt = function () {
+	this.getInt = function (alpha) {
 
 	    if (this.success) {
+		if (undefined !== alpha) {
+		    return ((this.a * 100 | 0) << 24 ^ this.r << 16 ^ this.g << 8 ^ this.b);
+		}
 		return (this.r << 16 ^ this.g << 8 ^ this.b) & 0xffffff;
 	    }
 	    return null;
@@ -811,9 +813,9 @@
 	this.random = function () {
 
 	    var c = new xColor([
-		mF(255 * mT()),
-		mF(255 * mT()),
-		mF(255 * mT())
+		(255 * mT())|0,
+		(255 * mT())|0,
+		(255 * mT())|0
 		]);
 
 	    if (c.success) {
@@ -874,7 +876,7 @@
 		    default:
 			v = c.r * .3 + c.g * .59 + c.b * .11;
 		}
-		c.r = c.g = c.b = mX(mF(v), 255);
+		c.r = c.g = c.b = mX(v|0, 255);
 
 		return c;
 	    }
@@ -1011,9 +1013,9 @@
 	    var b = new xColor(y);
 
 	    if (a.success & b.success) {
-		a.r = mF(a.r / 255 * b.r);
-		a.g = mF(a.g / 255 * b.g);
-		a.b = mF(a.b / 255 * b.b);
+		a.r = (a.r / 255 * b.r)|0;
+		a.g = (a.g / 255 * b.g)|0;
+		a.b = (a.b / 255 * b.b)|0;
 		return a;
 	    }
 	    return null;
@@ -1069,9 +1071,9 @@
 
 	    if (a.success & b.success) {
 
-		a.r = mF(a.r + ((b.r - a.r) / deg) * level);
-		a.g = mF(a.g + ((b.g - a.g) / deg) * level);
-		a.b = mF(a.b + ((b.b - a.b) / deg) * level);
+		a.r = (a.r + ((b.r - a.r) / deg) * level)|0;
+		a.g = (a.g + ((b.g - a.g) / deg) * level)|0;
+		a.b = (a.b + ((b.b - a.b) / deg) * level)|0;
 
 		return a;
 	    }
@@ -1082,7 +1084,7 @@
 
 	    if (ndx > size) return null;
 
-	    var e = mF(ndx * (arr.length - 1) / size);
+	    var e = (ndx * (arr.length - 1) / size)|0;
 	    var m = (ndx - size * e / (arr.length - 1)) / size;
 
 	    var a = new xColor(arr[e]);
@@ -1090,9 +1092,9 @@
 
 	    if (a.success & b.success) {
 
-		a.r = mF(a.r + arr.length * (b.r - a.r) * m);
-		a.g = mF(a.g + arr.length * (b.g - a.g) * m);
-		a.b = mF(a.b + arr.length * (b.b - a.b) * m);
+		a.r = (a.r + arr.length * (b.r - a.r) * m)|0;
+		a.g = (a.g + arr.length * (b.g - a.g) * m)|0;
+		a.b = (a.b + arr.length * (b.b - a.b) * m)|0;
 
 		return a;
 	    }
