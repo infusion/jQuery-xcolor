@@ -293,35 +293,41 @@
 		return;
 	    }
 
-	    if (typeof color === "object") {
+	    while (typeof color === "object") {
 
-		if (color[0] !== undefined && color[1] !== undefined && color[2] !== undefined) {
+		if (0 in color && 1 in color && 2 in color) {
 		    this.a = _normalize(color[3], 1);
 		    this.r = _normalize(color[0]);
 		    this.g = _normalize(color[1]);
 		    this.b = _normalize(color[2]);
 		    return;
-		} else if (color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+		} else if ('r' in color && 'g' in color && 'b' in color) {
 		    this.a = _normalize(color.a, 1);
 		    this.r = _normalize(color.r);
 		    this.g = _normalize(color.g);
 		    this.b = _normalize(color.b);
 		    return;
-		} else if (color.v !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var rgb = _hsv(color.h, color.s, color.v);
-		    this.a = _normalize(color.a, 1);
-		    this.r = rgb[0];
-		    this.g = rgb[1];
-		    this.b = rgb[2];
-		    return;
-		} else if (color.l !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var rgb =_hsl(color.h, color.s, color.l);
+		} else if ('h' in color && 's' in color) {
+
+		    var rgb;
+
+		    if ('l' in color) {
+			rgb = _hsl(color.h, color.s, color.l);
+		    } else if ('v' in color) {
+			rgb = _hsv(color.h, color.s, color.v);
+		    } else if ('b' in color) {
+			rgb = _hsv(color.h, color.s, color.b);
+		    } else {
+			break;
+		    }
+
 		    this.a = _normalize(color.a, 1);
 		    this.r = rgb[0];
 		    this.g = rgb[1];
 		    this.b = rgb[2];
 		    return;
 		}
+		break;
 	    }
 
 	    if (typeof color !== "string") {
@@ -333,7 +339,7 @@
 
 	    var part, c;
 
-	    if (undefined !== color_names[color]) {
+	    if (color in color_names) {
 
 		c = color_names[color];
 
