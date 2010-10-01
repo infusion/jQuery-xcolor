@@ -218,13 +218,13 @@
 	    return (n * m / s);
 	}
 
-	function _hsla(h,s,l) {
+	function _hsl(h,s,l) {
 
 	    h = _normalize(h, 360) / 360;
 	    s = _normalize(s, 1);
 	    l = _normalize(l, 1);
 
-	    if (0 == s) {
+	    if (0 === s) {
 		l = mR(l * 255);
 		return [l, l, l];
 	    }
@@ -247,7 +247,7 @@
 	    mR(255 *_hue(m, v, h - 1 / 3)) ];
 	}
 
-	function _hsva(h,s,v) {
+	function _hsv(h,s,v) {
 
 	    h = _normalize(h, 360) / 60;
 	    s = _normalize(s, 1);
@@ -308,14 +308,14 @@
 		    this.b = _normalize(color.b);
 		    return;
 		} else if (color.v !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var rgb = _hsva(color.h, color.s, color.v, 1);
+		    var rgb = _hsv(color.h, color.s, color.v);
 		    this.a = _normalize(color.a, 1);
 		    this.r = rgb[0];
 		    this.g = rgb[1];
 		    this.b = rgb[2];
 		    return;
 		} else if (color.l !== undefined && color.h !== undefined && color.s !== undefined) {
-		    var rgb =_hsla(color.h, color.s, color.l, 1);
+		    var rgb =_hsl(color.h, color.s, color.l);
 		    this.a = _normalize(color.a, 1);
 		    this.r = rgb[0];
 		    this.g = rgb[1];
@@ -396,9 +396,9 @@
 	    if (part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
 		var func;
 		if (part[1] == "l") {
-		    func = _hsla;
+		    func = _hsl;
 		} else {
-		    func = _hsva;
+		    func = _hsv;
 		}
 
 		c = func(parseInt(part[2], 10), parseInt(part[3], 10), parseInt(part[4], 10));
@@ -1180,7 +1180,7 @@
 	    return null;
 	}
 
-	this.splitcomplements = function (col) {
+	this.splitcomplement = function (col) {
 
 	    var c = new xColor(col);
 
