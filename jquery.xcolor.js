@@ -215,7 +215,7 @@
 		    return (n * m) | 0;
 		}
 	    }
-	    return (n * m / s);
+	    return n * m / s;
 	}
 
 	function _hsl(h,s,l) {
@@ -629,7 +629,7 @@
 
 	    if (this.success) {
 
-		var chars = "0123456789abcdef"
+		var chars = "0123456789abcdef";
 
 		var r1 = this.r >> 4;
 		var g1 = this.g >> 4;
@@ -818,16 +818,11 @@
 
 	this.random = function () {
 
-	    var c = new xColor([
+	    return new xColor([
 		(255 * mT())|0,
 		(255 * mT())|0,
 		(255 * mT())|0
 		]);
-
-	    if (c.success) {
-		return c;
-	    }
-	    return null;
 	}
 
 	this.complementary = function (col) {
@@ -1105,7 +1100,7 @@
 		return a;
 	    }
 	    return null;
-	},
+	}
 
 	this.nearestname = function (a) {
 
