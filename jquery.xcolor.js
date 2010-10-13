@@ -401,7 +401,7 @@
 	    // hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
 	    if (part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
 		var func;
-		if (part[1] == "l") {
+		if (part[1] === "l") {
 		    func = _hsl;
 		} else {
 		    func = _hsv;
@@ -639,7 +639,7 @@
 		var g2 = this.g & 0xf;
 		var b2 = this.b & 0xf;
 
-		if (0 == ((r1 ^ r2) | (g1 ^ g2) | (b1 ^ b2))) {
+		if (0 === ((r1 ^ r2) | (g1 ^ g2) | (b1 ^ b2))) {
 		    return '#' + chars.charAt(r1) + chars.charAt(g1) + chars.charAt(b1);
 		}
 		return '#'
@@ -736,11 +736,11 @@
 	    do {
 		color = $.curCSS(elem, attr);
 
-		if ("" != color || $.nodeName(elem, "body")) break;
+		if ("" !== color || $.nodeName(elem, "body")) break;
 
 	    } while (elem = elem.parentNode);
 
-	    if ("" == color) {
+	    if ("" === color) {
 		color = "transparent";
 	    }
 
@@ -749,12 +749,12 @@
 	    do {
 		color = $.curCSS(elem, attr);
 
-		if ("" != color && "transparent" != color && "rgba(0, 0, 0, 0)" != color || $.nodeName(elem, "body")) break;
+		if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $.nodeName(elem, "body")) break;
 
 	    } while (elem = elem.parentNode);
 
-	    if ("" == color) {
-		if ("backgroundColor" == attr) {
+	    if ("" === color) {
+		if ("backgroundColor" === attr) {
 		    color = "white";
 		} else {
 		    color = "black";
@@ -1237,25 +1237,25 @@
 
 	do {
 
-	    if ("" == f && ("transparent" == (f = $.curCSS(elem, "color")) || "rgba(0, 0, 0, 0)" == f)) {
+	    if ("" === f && ("transparent" === (f = $.curCSS(elem, "color")) || "rgba(0, 0, 0, 0)" === f)) {
 		f = "";
 	    }
 
-	    if ("" == b && ("transparent" == (b = $.curCSS(elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" == b)) {
+	    if ("" === b && ("transparent" === (b = $.curCSS(elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" === b)) {
 		b = "";
 	    }
 
-	    if ("" != f && "" != b || $.nodeName(elem, "body")) {
+	    if ("" !== f && "" !== b || $.nodeName(elem, "body")) {
 		break;
 	    }
 
 	} while (elem = elem.parentNode);
 
-	if ("" == f) {
+	if ("" === f) {
 	    f = "black";
 	}
 
-	if ("" == b) {
+	if ("" === b) {
 	    b = "white";
 	}
 
