@@ -230,8 +230,8 @@
 	    }
 
 	    function _hue(v1, v2, h) {
-		if (h < 0) h++;
-		if (h > 1) h--;
+		if (h < 0) ++h;
+		if (h > 1) --h;
 		if (6 * h < 1) return v1 + (v2 - v1) * 6 * h;
 		if (2 * h < 1) return v2;
 		if (3 * h < 2) return v1 + (v2 - v1) * (4 - 6 * h);
@@ -611,8 +611,8 @@
 			h = 2 / 3 + dG - dR;
 		    }
 
-		    if (h < 0) h++;
-		    if (h > 1) h--;
+		    if (h < 0) ++h;
+		    if (h > 1) --h;
 		}
 
 		return {
@@ -731,37 +731,23 @@
 
 	var color = "";
 
-	if ($.support.opacity) {
+	do {
+	    color = $.curCSS(elem, attr);
 
-	    do {
-		color = $.curCSS(elem, attr);
+	    if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $.nodeName(elem, "body")) break;
 
-		if ("" !== color || $.nodeName(elem, "body")) break;
+	} while (elem = elem.parentNode);
 
-	    } while (elem = elem.parentNode);
+	if ("" === color) {
 
-	    if ("" === color) {
+	    if ($.support.opacity) {
 		color = "transparent";
-	    }
-
-	} else {
-
-	    do {
-		color = $.curCSS(elem, attr);
-
-		if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $.nodeName(elem, "body")) break;
-
-	    } while (elem = elem.parentNode);
-
-	    if ("" === color) {
-		if ("backgroundColor" === attr) {
-		    color = "white";
-		} else {
-		    color = "black";
-		}
+	    } else if ("backgroundColor" === attr) {
+		color = "white";
+	    } else {
+		color = "black";
 	    }
 	}
-
 	return new xColor(color);
     }
 
@@ -946,7 +932,7 @@
 
 	    if (a.success & b.success) {
 
-		for (var i = 0; i < 6; i++) {
+		for (var i = 0; i < 6; ++i) {
 		    if (mT() < .5) {
 			mask|= 0x0f << (i << 2);
 		    }
