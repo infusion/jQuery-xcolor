@@ -5,7 +5,7 @@
  * Date: 06/21/2010
  *
  * @author Robert Eisele
- * @version 1.2
+ * @version 1.3
  *
  * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
@@ -797,6 +797,24 @@
 	    if (c.success) {
 		c.r = 0xff;
 		c.b = 0xff;
+		return c;
+	    }
+	    return null;
+	}
+
+	this.sepia = function(col) {
+
+	    var c = new xColor(col);
+
+	    // Microsoft's sepia function http://msdn.microsoft.com/en-us/magazine/cc163866.aspx
+	    if (c.success) {
+
+		var r = c.r, g = c.g, b = c.b;
+
+		c.r = mR(r * 0.393 + g * 0.769 + b * 0.189);
+		c.g = mR(r * 0.349 + g * 0.686 + b * 0.168);
+		c.b = mR(r * 0.272 + g * 0.534 + b * 0.131);
+
 		return c;
 	    }
 	    return null;
