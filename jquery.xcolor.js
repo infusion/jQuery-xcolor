@@ -1,11 +1,11 @@
 /**
- * jQuery xcolor
+ * jQuery xcolor plugin
  * Copyright (c) 2010, Robert Eisele (robert@xarg.org)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * Date: 06/21/2010
  *
  * @author Robert Eisele
- * @version 1.3
+ * @version 1.4
  *
  * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
@@ -164,12 +164,6 @@
 	yellowgreen: 10145074
     };
 
-    var mR=Math.round;
-    var mS=Math.sqrt;
-    var mX=Math.min;
-    var mY=Math.max;
-    var mT=Math.random;
-
     /**
      * @constructor
      */
@@ -179,7 +173,7 @@
 
 	    var m;
 
-	    if (undefined === s) {
+	    if (void 0 === s) {
 		n = parseInt(n, 10);
 		s = 255;
 		m = 255;
@@ -187,7 +181,7 @@
 
 		if (1 === s) {
 
-		    if (undefined === n) {
+		    if (void 0 === n) {
 			return 1;
 		    }
 
@@ -225,7 +219,7 @@
 	    l = _normalize(l, 1);
 
 	    if (0 === s) {
-		l = mR(l * 255);
+		l = Math.round(l * 255);
 		return [l, l, l];
 	    }
 
@@ -238,13 +232,13 @@
 		return v1;
 	    }
 
-	    var v = l < .5 ? (l * (1 + s)) : (l + s - l * s);
+	    var v = l < 0.5 ? (l + l * s) : (l + s - l * s);
 	    var m = l + l - v;
 
 	    return [
-	    mR(255 *_hue(m, v, h + 1 / 3)),
-	    mR(255 *_hue(m, v, h)),
-	    mR(255 *_hue(m, v, h - 1 / 3)) ];
+	    Math.round(255 *_hue(m, v, h + 1 / 3)),
+	    Math.round(255 *_hue(m, v, h)),
+	    Math.round(255 *_hue(m, v, h - 1 / 3)) ];
 	}
 
 	function _hsv(h,s,v) {
@@ -258,10 +252,10 @@
 
 	    if (!(hi & 1)) f = 1 - f;
 
-	    var m = mR(255 * (v * (1 - s)));
-	    var n = mR(255 * (v * (1 - s * f)));
+	    var m = Math.round(255 * (v * (1 - s)));
+	    var n = Math.round(255 * (v * (1 - s * f)));
 
-	    v = mR(255 * v);
+	    v = Math.round(255 * v);
 
 	    switch (hi) {
 		case 6:
@@ -392,9 +386,9 @@
 	    // rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
 	    if (part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color)) {
 		this.a = _normalize(part[5], 1);
-		this.r = mR(_normalize(part[1], 100) * 2.55);
-		this.g = mR(_normalize(part[2], 100) * 2.55);
-		this.b = mR(_normalize(part[3], 100) * 2.55);
+		this.r = Math.round(_normalize(part[1], 100) * 2.55);
+		this.g = Math.round(_normalize(part[2], 100) * 2.55);
+		this.b = Math.round(_normalize(part[3], 100) * 2.55);
 		return;
 	    }
 
@@ -430,7 +424,7 @@
 
 	this.getColor = function (type) {
 
-	    if (undefined !== type) switch (type.toLowerCase()) {
+	    if (void 0 !== type) switch (type.toLowerCase()) {
 		case "rgb":
 		    return this.getRGB();
 		case "hsv":
@@ -503,7 +497,7 @@
 		    /* We do not handle transparency */
 		    var b = new xColor(table[i]).getHSL();
 
-		    var tmp = mS(0.5 * (a.h - b.h) * (a.h - b.h) + 0.5 * (a.s - b.s) * (a.s - b.s) + (a.l - b.l) * (a.l - b.l));
+		    var tmp = Math.sqrt(0.5 * (a.h - b.h) * (a.h - b.h) + 0.5 * (a.s - b.s) * (a.s - b.s) + (a.l - b.l) * (a.l - b.l));
 
 		    if (null === lowest || tmp < lowest) {
 			lowest = tmp;
@@ -538,8 +532,8 @@
 		var g = this.g / 255;
 		var b = this.b / 255;
 
-		var min = mX(r, g, b);
-		var max = mY(r, g, b);
+		var min = Math.min(r, g, b);
+		var max = Math.max(r, g, b);
 		var delta = max - min;
 
 		var h, s, l = (max + min) / 2;
@@ -549,28 +543,23 @@
 		    s = 0;
 		} else {
 
-		    if (l < .5) {
-			s = delta / (max + min);
-		    } else {
-			s = delta / (2.0 - (max + min));
-		    }
-
 		    if (max == r) {
 			h = (g - b) / delta;
 		    } else if (max == g) {
-			h = 2.0 + (b - r) / delta;
+			h = 2 + (b - r) / delta;
 		    } else if (max == b) {
-			h = 4.0 + (r - g) / delta;
+			h = 4 + (r - g) / delta;
 		    }
 
 		    if (h < 0) {
 			h+= 6;
 		    }
+	    	    s = delta / (l < 0.5 ? max + min : 2 - max - min);
 		}
 		return {
-		    h: mR(h * 60),
-		    s: mR(s * 100),
-		    l: mR(l * 100),
+		    h: Math.round(h * 60),
+		    s: Math.round(s * 100),
+		    l: Math.round(l * 100),
 		    a: this.a
 		};
 	    }
@@ -585,8 +574,8 @@
 		var g = this.g / 255;
 		var b = this.b / 255;
 
-		var min = mX(r, g, b);
-		var max = mY(r, g, b);
+		var min = Math.min(r, g, b);
+		var max = Math.max(r, g, b);
 		var delta = max - min;
 
 		var h, s, v = max;
@@ -616,9 +605,9 @@
 		}
 
 		return {
-		    h: mR(h * 360),
-		    s: mR(s * 100),
-		    v: mR(v * 100),
+		    h: Math.round(h * 360),
+		    s: Math.round(s * 100),
+		    v: Math.round(v * 100),
 		    a: this.a
 		};
 	    }
@@ -653,7 +642,7 @@
 	this.getInt = function (alpha) {
 
 	    if (this.success) {
-		if (undefined !== alpha) {
+		if (void 0 !== alpha) {
 		    return ((this.a * 100 | 0) << 24 ^ this.r << 16 ^ this.g << 8 ^ this.b);
 		}
 		return (this.r << 16 ^ this.g << 8 ^ this.b) & 0xffffff;
@@ -672,7 +661,7 @@
 
 	$.fx.step[attr] = function(fx) {
 
-	    if (fx.xinit === undefined) {
+	    if (fx.xinit === void 0) {
 
 		if (typeof fx.end === "string" && -1 !== fx.end.indexOf(";")) {
 
@@ -811,9 +800,9 @@
 
 		var r = c.r, g = c.g, b = c.b;
 
-		c.r = mR((r * 0.393 + g * 0.769 + b * 0.189) / 1.351);
-		c.g = mR((r * 0.349 + g * 0.686 + b * 0.168) / 1.351);
-		c.b = mR((r * 0.272 + g * 0.534 + b * 0.131) / 1.351);
+		c.r = Math.round(r * 0.393 + g * 0.769 + b * 0.189);
+		c.g = Math.round(r * 0.349 + g * 0.686 + b * 0.168);
+		c.b = Math.round(r * 0.272 + g * 0.534 + b * 0.131);
 
 		return c;
 	    }
@@ -823,9 +812,9 @@
 	this.random = function () {
 
 	    return new xColor([
-		(255 * mT())|0,
-		(255 * mT())|0,
-		(255 * mT())|0
+		(255 * Math.random())|0,
+		(255 * Math.random())|0,
+		(255 * Math.random())|0
 		]);
 	}
 
@@ -853,11 +842,11 @@
 		    o/= 100;
 		}
 
-		o = mY(o - 1 + b.a, 0);
+		o = Math.max(o - 1 + b.a, 0);
 
-		a.r = mR((b.r - a.r) * o + a.r);
-		a.g = mR((b.g - a.g) * o + a.g);
-		a.b = mR((b.b - a.b) * o + a.b);
+		a.r = Math.round((b.r - a.r) * o + a.r);
+		a.g = Math.round((b.g - a.g) * o + a.g);
+		a.b = Math.round((b.b - a.b) * o + a.b);
 
 		return a;
 	    }
@@ -881,7 +870,7 @@
 		    default:
 			v = c.r * .3 + c.g * .59 + c.b * .11;
 		}
-		c.r = c.g = c.b = mX(v|0, 255);
+		c.r = c.g = c.b = Math.min(v|0, 255);
 
 		return c;
 	    }
@@ -908,7 +897,7 @@
 
 	    if (a.success & b.success) {
 		// Approximation attempt of http://www.compuphase.com/cmetric.htm
-		return mS(3 * (b.r - a.r) * (b.r - a.r) + 4 * (b.g - a.g) * (b.g - a.g) + 2 * (b.b - a.b) * (b.b - a.b));
+		return Math.sqrt(3 * (b.r - a.r) * (b.r - a.r) + 4 * (b.g - a.g) * (b.g - a.g) + 2 * (b.b - a.b) * (b.b - a.b));
 	    }
 	    return null;
 	}
@@ -951,7 +940,7 @@
 	    if (a.success & b.success) {
 
 		for (var i = 0; i < 6; ++i) {
-		    if (mT() < .5) {
+		    if (Math.random() < .5) {
 			mask|= 0x0f << (i << 2);
 		    }
 		}
@@ -1118,11 +1107,11 @@
 
 	this.darken = function (col, by, shade) {
 
-	    if (by === undefined) {
+	    if (by === void 0) {
 		by = 1;
 	    } else if (by < 0) return this.lighten(col, -by, shade);
 
-	    if (shade === undefined) {
+	    if (shade === void 0) {
 		shade = 32;
 	    }
 
@@ -1139,11 +1128,11 @@
 
 	this.lighten = function (col, by, shade) {
 
-	    if (by === undefined) {
+	    if (by === void 0) {
 		by = 1;
 	    } else if (by < 0) return this.darken(col, -by, shade);
 
-	    if (shade === undefined) {
+	    if (shade === void 0) {
 		shade = 32;
 	    }
 
@@ -1160,11 +1149,11 @@
 
 	this.analogous = function (col, results, slices) {
 
-	    if (results === undefined) {
+	    if (results === void 0) {
 		results = 8;
 	    }
 
-	    if (slices === undefined) {
+	    if (slices === void 0) {
 		slices = 30;
 	    }
 
@@ -1209,7 +1198,7 @@
 
 	this.monochromatic = function (col, results) {
 
-	    if (results === undefined) {
+	    if (results === void 0) {
 		results = 6;
 	    }
 
