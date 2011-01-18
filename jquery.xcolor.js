@@ -5,7 +5,7 @@
  * Date: 06/21/2010
  *
  * @author Robert Eisele
- * @version 1.4
+ * @version 1.5
  *
  * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
@@ -174,14 +174,14 @@
 	    var m;
 
 	    if (void 0 === s) {
-		n = parseInt(n, 10);
+		n = parseFloat(n);
 		s = 255;
 		m = 255;
 	    } else {
 
 		if (1 === s) {
 
-		    if (void 0 === n) {
+		    if (void 0 === n || 1 === n) {
 			return 1;
 		    }
 
@@ -202,7 +202,7 @@
 		return m;
 	    }
 
-	    if (n <= 1) {
+	    if (n < 1 || 1 === s) {
 		if (m === 1) {
 		    return n;
 		} else {
@@ -554,7 +554,7 @@
 		    if (h < 0) {
 			h+= 6;
 		    }
-	    	    s = delta / (l < 0.5 ? max + min : 2 - max - min);
+		    s = delta / (l < 0.5 ? max + min : 2 - max - min);
 		}
 		return {
 		    h: Math.round(h * 60),
