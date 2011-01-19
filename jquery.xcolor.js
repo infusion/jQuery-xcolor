@@ -173,25 +173,22 @@
 
 	    var m;
 
-	    if (void 0 === s) {
+	    if (void 0 !== n) {
 		n = parseFloat(n);
+	    }
+
+	    if (void 0 === s) {
 		s = 255;
 		m = 255;
-	    } else {
+	    } else if (1 === s) {
 
-		if (1 === s) {
-
-		    if (void 0 === n || 1 === n) {
-			return 1;
-		    }
-
-		    s = 100;
-		    m = 1;
-		} else {
-		    m = s;
+		if (void 0 === n || 1 === n) {
+		    return 1;
 		}
-
-		n = parseFloat(n);
+		s = 100;
+		m = 1;
+	    } else {
+		m = s;
 	    }
 
 	    if (isNaN(n) || n <= 0) {
