@@ -165,8 +165,8 @@
 	};
 
 	/**
-     * @constructor
-     */
+	 * @constructor
+	 */
 	function xColor(color) {
 
 		function _normalize(n, s) {
