@@ -221,8 +221,8 @@
 			}
 
 			function _hue(v1, v2, h) {
-				if (h < 0) ++h;
-				if (h > 1) --h;
+				h = ++h % 1;
+
 				if (6 * h < 1) return v1 + (v2 - v1) * 6 * h;
 				if (2 * h < 1) return v2;
 				if (3 * h < 2) return v1 + (v2 - v1) * (4 - 6 * h);
@@ -597,8 +597,7 @@
 						h = 2 / 3 + dG - dR;
 					}
 
-					if (h < 0) ++h;
-					if (h > 1) --h;
+					h = ++h % 1;
 				}
 
 				return {
@@ -932,11 +931,11 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			var mask = 0;
+			var mask = 0, i = 6;
 
 			if (a.success & b.success) {
 
-				for (var i = 0; i < 6; ++i) {
+				while (i--) {
 					if (Math.random() < .5) {
 						mask|= 0x0f << (i << 2);
 					}
