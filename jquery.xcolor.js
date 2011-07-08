@@ -340,12 +340,12 @@
 				this.b =  ((c      ) & 0xff);
 				return;
 			}
-	    
+
 			// 53892983
 			if (part = /^([1-9]\d*)$/.exec(color)) {
-		   
+
 				c = parseInt(part[1], 10);
-		   
+
 				this.a =(((c >> 24) & 0xff) || 255) / 255;
 				this.r = ((c >> 16) & 0xff);
 				this.g = ((c >>  8) & 0xff);
@@ -682,7 +682,7 @@
 					fx.start = findColor(fx.elem, attr);
 					fx.end = new xColor(fx.end);
 				}
-		
+
 				fx.xinit = 1;
 			}
 
@@ -1267,6 +1267,83 @@
 
 		// todo: if alpha != 1, use opacity() to calculate correct color on certain element and it's parent
 		return $.xcolor.readable(b, f);
+	}
+
+	$.fn.colorize = function (FROM, TO, TYPE) {
+
+		if (!TYPE) {
+			TYPE = 0;
+		} else if (TYPE !== 1) {
+			return;
+		}
+
+		var elem = this[0],
+		    FROM = new xColor(FROM),
+			TO   = new xColor(TO),
+			tmp  = elem.childNodes,
+			LEN  = 0,
+			K    = 0;
+
+		if (FROM.success & TO.success) {
+
+			for (i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
+
+			(function replace(node) {
+
+				var i = 0,
+					len;
+
+				if (3 === node.nodeType) {
+
+						var x = FROM;
+						var y = TO;
+						var l = LEN;
+						var t = TYPE;
+						var elem, ctx, diff = 0, c;
+
+						len = node.nodeValue.length;
+						ctx = document.createElement('span');
+
+						for (i=0; i<len; ++i) {
+
+							elem = document.createElement('span');
+							c    = node.nodeValue.charAt(i);
+
+							if (t) {
+
+								if(c !== ' ') diff =!diff;
+
+								elem.style.color = 'rgb('
+								+(diff ? x.r : y.r)+','
+								+(diff ? x.g : y.g)+','
+								+(diff ? x.b : y.b)+')';
+							} else {
+
+								diff = K / l;
+
+								elem.style.color = 'rgb('
+								+((x.r + (y.r - x.r) * diff)|0)+','
+								+((x.g + (y.g - x.g) * diff)|0)+','
+								+((x.b + (y.b - x.b) * diff)|0)+')';
+							}
+
+							elem.appendChild(document.createTextNode(
+										c
+									)
+							);
+							ctx.appendChild(elem);
+							++K;
+						}
+						node.parentNode.replaceChild(ctx, node);
+
+				} else {
+					for (len = node.childNodes.length; i < len; ++i) {
+						replace(node.childNodes[i]);
+					}
+				}
+			})(elem);
+
+		}
 	}
 
 })(jQuery);
