@@ -169,20 +169,25 @@
 	 */
 	function xColor(color) {
 
+		/**
+		 * normalize function
+		 * @param {(number|string)=} n (optional).
+		 * @param {(number|string)=} s (optional).
+		 */
 		function _normalize(n, s) {
 
 			var m;
 
-			if (void 0 !== n) {
+			if (undefined !== n) {
 				n = parseFloat(n);
 			}
 
-			if (void 0 === s) {
+			if (undefined === s) {
 				s = 255;
 				m = 255;
 			} else if (1 === s) {
 
-				if (void 0 === n || 1 === n) {
+				if (undefined === n || 1 === n) {
 					return 1;
 				}
 				s = 100;
@@ -271,58 +276,58 @@
 			}
 		}
 
-		this.setColor = function (color) {
+		this["setColor"] = function (color) {
 
-			this.success = true;
+			this["success"] = true;
 
 			if (typeof color === "number") {
 
-				this.a =((color >> 24) & 0xff) / 255;
-				this.r = (color >> 16) & 0xff;
-				this.g = (color >>  8) & 0xff;
-				this.b = (color      ) & 0xff;
+				this["a"] =((color >> 24) & 0xff) / 255;
+				this["r"] = (color >> 16) & 0xff;
+				this["g"] = (color >>  8) & 0xff;
+				this["b"] = (color      ) & 0xff;
 				return;
 			}
 
 			while (typeof color === "object") {
 
 				if (0 in color && 1 in color && 2 in color) {
-					this.a = _normalize(color[3], 1);
-					this.r = _normalize(color[0]);
-					this.g = _normalize(color[1]);
-					this.b = _normalize(color[2]);
+					this["a"] = _normalize(color[3], 1);
+					this["r"] = _normalize(color[0]);
+					this["g"] = _normalize(color[1]);
+					this["b"] = _normalize(color[2]);
 					return;
 				} else if ('r' in color && 'g' in color && 'b' in color) {
-					this.a = _normalize(color.a, 1);
-					this.r = _normalize(color.r);
-					this.g = _normalize(color.g);
-					this.b = _normalize(color.b);
+					this["a"] = _normalize(color["a"], 1);
+					this["r"] = _normalize(color["r"]);
+					this["g"] = _normalize(color["g"]);
+					this["b"] = _normalize(color["b"]);
 					return;
 				} else if ('h' in color && 's' in color) {
 
 					var rgb;
 
 					if ('l' in color) {
-						rgb = _hsl(color.h, color.s, color.l);
+						rgb = _hsl(color["h"], color["s"], color["l"]);
 					} else if ('v' in color) {
-						rgb = _hsv(color.h, color.s, color.v);
+						rgb = _hsv(color["h"], color["s"], color["v"]);
 					} else if ('b' in color) {
-						rgb = _hsv(color.h, color.s, color.b);
+						rgb = _hsv(color["h"], color["s"], color["b"]);
 					} else {
 						break;
 					}
 
-					this.a = _normalize(color.a, 1);
-					this.r = rgb[0];
-					this.g = rgb[1];
-					this.b = rgb[2];
+					this["a"] = _normalize(color["a"], 1);
+					this["r"] = rgb[0];
+					this["g"] = rgb[1];
+					this["b"] = rgb[2];
 					return;
 				}
 				break;
 			}
 
 			if (typeof color !== "string") {
-				this.success = false;
+				this["success"] = false;
 				return;
 			}
 
@@ -334,10 +339,10 @@
 
 				c = color_names[color];
 
-				this.a =(!((c >> 24) & 0xff))|0;
-				this.r =  ((c >> 16) & 0xff);
-				this.g =  ((c >>  8) & 0xff);
-				this.b =  ((c      ) & 0xff);
+				this["a"] =(!((c >> 24) & 0xff))|0;
+				this["r"] =  ((c >> 16) & 0xff);
+				this["g"] =  ((c >>  8) & 0xff);
+				this["b"] =  ((c      ) & 0xff);
 				return;
 			}
 
@@ -346,46 +351,46 @@
 
 				c = parseInt(part[1], 10);
 
-				this.a =(((c >> 24) & 0xff) || 255) / 255;
-				this.r = ((c >> 16) & 0xff);
-				this.g = ((c >>  8) & 0xff);
-				this.b = ((c      ) & 0xff);
+				this["a"] =(((c >> 24) & 0xff) || 255) / 255;
+				this["r"] = ((c >> 16) & 0xff);
+				this["g"] = ((c >>  8) & 0xff);
+				this["b"] = ((c      ) & 0xff);
 				return;
 			}
 
 			// #ff9000, #ff0000
 			if (part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color)) {
-				this.a = 1;
-				this.r = parseInt(part[1], 16);
-				this.g = parseInt(part[2], 16);
-				this.b = parseInt(part[3], 16);
+				this["a"] = 1;
+				this["r"] = parseInt(part[1], 16);
+				this["g"] = parseInt(part[2], 16);
+				this["b"] = parseInt(part[3], 16);
 				return;
 			}
 
 			// #f00, fff
 			if (part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color)) {
-				this.a = 1;
-				this.r = parseInt(part[1] + part[1], 16);
-				this.g = parseInt(part[2] + part[2], 16);
-				this.b = parseInt(part[3] + part[3], 16);
+				this["a"] = 1;
+				this["r"] = parseInt(part[1] + part[1], 16);
+				this["g"] = parseInt(part[2] + part[2], 16);
+				this["b"] = parseInt(part[3] + part[3], 16);
 				return;
 			}
 
 			// rgb(1, 234, 56)
 			if (part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
-				this.a = _normalize(part[5], 1);
-				this.r = _normalize(part[1]);
-				this.g = _normalize(part[2]);
-				this.b = _normalize(part[3]);
+				this["a"] = _normalize(part[5], 1);
+				this["r"] = _normalize(part[1]);
+				this["g"] = _normalize(part[2]);
+				this["b"] = _normalize(part[3]);
 				return;
 			}
 
 			// rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
 			if (part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color)) {
-				this.a = _normalize(part[5], 1);
-				this.r = Math.round(_normalize(part[1], 100) * 2.55);
-				this.g = Math.round(_normalize(part[2], 100) * 2.55);
-				this.b = Math.round(_normalize(part[3], 100) * 2.55);
+				this["a"] = _normalize(part[5], 1);
+				this["r"] = Math.round(2.55 * _normalize(part[1], 100));
+				this["g"] = Math.round(2.55 * _normalize(part[2], 100));
+				this["b"] = Math.round(2.55 * _normalize(part[3], 100));
 				return;
 			}
 
@@ -400,101 +405,101 @@
 
 				c = func(parseInt(part[2], 10), parseInt(part[3], 10), parseInt(part[4], 10));
 
-				this.a = _normalize(part[6], 1);
-				this.r = c[0];
-				this.g = c[1];
-				this.b = c[2];
+				this["a"] = _normalize(part[6], 1);
+				this["r"] = c[0];
+				this["g"] = c[1];
+				this["b"] = c[2];
 				return;
 			}
 
 			// 1, 234, 56
 			if (part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color)) {
-				this.a = _normalize(part[5], 1);
-				this.r = _normalize(part[1]);
-				this.g = _normalize(part[2]);
-				this.b = _normalize(part[3]);
+				this["a"] = _normalize(part[5], 1);
+				this["r"] = _normalize(part[1]);
+				this["g"] = _normalize(part[2]);
+				this["b"] = _normalize(part[3]);
 				return;
 			}
 
-			this.success = false;
+			this["success"] = false;
 		}
 
-		this.getColor = function (type) {
+		this["getColor"] = function (type) {
 
-			if (void 0 !== type) switch (type.toLowerCase()) {
+			if (undefined !== type) switch (type.toLowerCase()) {
 				case "rgb":
-					return this.getRGB();
+					return this["getRGB"]();
 				case "hsv":
 				case "hsb":
-					return this.getHSV();
+					return this["getHSV"]();
 				case "hsl":
-					return this.getHSL();
+					return this["getHSL"]();
 				case "int":
-					return this.getInt();
+					return this["getInt"]();
 				case "array":
-					return this.getArray();
+					return this["getArray"]();
 				case "fraction":
-					return this.getFraction();
+					return this["getFraction"]();
 				case "css":
 				case "style":
-					return this.getCSS();
+					return this["getCSS"]();
 				case "name":
-					return this.getName();
+					return this["getName"]();
 			}
-			return this.getHex();
+			return this["getHex"]();
 		}
 
-		this.getRGB = function () {
+		this["getRGB"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
 				return {
-					r: this.r,
-					g: this.g,
-					b: this.b,
-					a: this.a
+					"r": this["r"],
+					"g": this["g"],
+					"b": this["b"],
+					"a": this["a"]
 				};
 			}
 			return null;
 		}
 
-		this.getCSS = function () {
+		this["getCSS"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
-				if (this.a == 1) {
-					return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
+				if (this["a"] == 1) {
+					return 'rgb(' + this["r"] + ', ' + this["g"] + ', ' + this["b"] + ')';
 				}
-				return 'rgba(' + this.r + ', ' + this.g + ', ' + this.b + ', ' + this.a + ')';
+				return 'rgba(' + this["r"] + ', ' + this["g"] + ', ' + this["b"] + ', ' + this["a"] + ')';
 			}
 			return null;
 		}
 
-		this.getArray = function () {
+		this["getArray"] = function () {
 
-			if (this.success) {
-				return [this.r, this.g, this.b, this.a * 100 | 0];
+			if (this["success"]) {
+				return [this["r"], this["g"], this["b"], this["a"] * 100 | 0];
 			}
 			return null;
 		}
 
-		this.getName = function () {
+		this["getName"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
 				var lowest = null;
 				var lowest_ndx;
 
 				var table = color_names;
 
-				var a = this.getHSL();
+				var a = this["getHSL"]();
 
 				for (var i in table) {
 
 					/* We do not handle transparency */
-					var b = new xColor(table[i]).getHSL();
+					var b = new xColor(table[i])["getHSL"]();
 
-					var tmp = Math.sqrt(0.5 * (a.h - b.h) * (a.h - b.h) + 0.5 * (a.s - b.s) * (a.s - b.s) + (a.l - b.l) * (a.l - b.l));
+					var tmp = Math.sqrt(0.5 * (a["h"] - b["h"]) * (a["h"] - b["h"]) + 0.5 * (a["s"] - b["s"]) * (a["s"] - b["s"]) + (a["l"] - b["l"]) * (a["l"] - b["l"]));
 
 					if (null === lowest || tmp < lowest) {
 						lowest = tmp;
@@ -506,28 +511,28 @@
 			return null;
 		}
 
-		this.getFraction = function () {
+		this["getFraction"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
 				return {
-					r: this.r / 255,
-					g: this.g / 255,
-					b: this.b / 255,
-					a: this.a
+					"r": this["r"] / 255,
+					"g": this["g"] / 255,
+					"b": this["b"] / 255,
+					"a": this["a"]
 				};
 			}
 			return null;
 		}
 
-		this.getHSL = function () {
+		this["getHSL"] = function () {
 
 			// inspiration: http://130.113.54.154/~monger/hsl-rgb.html
-			if (this.success) {
+			if (this["success"]) {
 
-				var r = this.r / 255;
-				var g = this.g / 255;
-				var b = this.b / 255;
+				var r = this["r"] / 255;
+				var g = this["g"] / 255;
+				var b = this["b"] / 255;
 
 				var min = Math.min(r, g, b);
 				var max = Math.max(r, g, b);
@@ -535,16 +540,16 @@
 
 				var h, s, l = (max + min) / 2;
 
-				if (0 == delta) {
+				if (0 === delta) {
 					h = 0;
 					s = 0;
 				} else {
 
-					if (max == r) {
+					if (r === max) {
 						h = (g - b) / delta;
-					} else if (max == g) {
+					} else if (g === max) {
 						h = 2 + (b - r) / delta;
-					} else if (max == b) {
+					} else if (b === max) {
 						h = 4 + (r - g) / delta;
 					}
 
@@ -554,22 +559,22 @@
 					s = delta / (l < 0.5 ? max + min : 2 - max - min);
 				}
 				return {
-					h: Math.round(h * 60),
-					s: Math.round(s * 100),
-					l: Math.round(l * 100),
-					a: this.a
+					"h": Math.round(h * 60),
+					"s": Math.round(s * 100),
+					"l": Math.round(l * 100),
+					"a": this["a"]
 				};
 			}
 			return null;
 		}
 
-		this.getHSV = function () {
+		this["getHSV"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
-				var r = this.r / 255;
-				var g = this.g / 255;
-				var b = this.b / 255;
+				var r = this["r"] / 255;
+				var g = this["g"] / 255;
+				var b = this["b"] / 255;
 
 				var min = Math.min(r, g, b);
 				var max = Math.max(r, g, b);
@@ -577,7 +582,7 @@
 
 				var h, s, v = max;
 
-				if (0 == delta) {
+				if (0 === delta) {
 					h = 0;
 					s = 0;
 				} else {
@@ -589,11 +594,11 @@
 					var dG = .5 + (max - g) / delta;
 					var dB = .5 + (max - b) / delta;
 
-					if (r == max) {
+					if (r === max) {
 						h = dB - dG;
-					} else if (g == max) {
+					} else if (g === max) {
 						h = 1 / 3 + dR - dB;
-					} else if (b == max) {
+					} else if (b === max) {
 						h = 2 / 3 + dG - dR;
 					}
 
@@ -601,28 +606,28 @@
 				}
 
 				return {
-					h: Math.round(h * 360),
-					s: Math.round(s * 100),
-					v: Math.round(v * 100),
-					a: this.a
+					"h": Math.round(h * 360),
+					"s": Math.round(s * 100),
+					"v": Math.round(v * 100),
+					"a": this["a"]
 				};
 			}
 			return null;
 		}
 
-		this.getHex = function () {
+		this["getHex"] = function () {
 
-			if (this.success) {
+			if (this["success"]) {
 
 				var chars = "0123456789abcdef";
 
-				var r1 = this.r >> 4;
-				var g1 = this.g >> 4;
-				var b1 = this.b >> 4;
+				var r1 = this["r"] >> 4;
+				var g1 = this["g"] >> 4;
+				var b1 = this["b"] >> 4;
 
-				var r2 = this.r & 0xf;
-				var g2 = this.g & 0xf;
-				var b2 = this.b & 0xf;
+				var r2 = this["r"] & 0xf;
+				var g2 = this["g"] & 0xf;
+				var b2 = this["b"] & 0xf;
 
 				if (0 === ((r1 ^ r2) | (g1 ^ g2) | (b1 ^ b2))) {
 					return '#' + chars.charAt(r1) + chars.charAt(g1) + chars.charAt(b1);
@@ -635,33 +640,33 @@
 			return null;
 		}
 
-		this.getInt = function (alpha) {
+		this["getInt"] = function (alpha) {
 
-			if (this.success) {
-				if (void 0 !== alpha) {
-					return ((this.a * 100 | 0) << 24 ^ this.r << 16 ^ this.g << 8 ^ this.b);
+			if (this["success"]) {
+				if (undefined !== alpha) {
+					return ((this["a"] * 100 | 0) << 24 ^ this["r"] << 16 ^ this["g"] << 8 ^ this["b"]);
 				}
-				return (this.r << 16 ^ this.g << 8 ^ this.b) & 0xffffff;
+				return (this["r"] << 16 ^ this["g"] << 8 ^ this["b"]) & 0xffffff;
 			}
 			return null;
 		}
 
-		this.toString = function () {
-			return this.getHex();
+		this["toString"] = function () {
+			return this["getHex"]();
 		}
 
-		this.setColor(color);
+		this["setColor"](color);
 	}
 
-	$.each(['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'outlineColor'], function(i, attr) {
+	$["each"](['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'outlineColor'], function(i, attr) {
 
-		$.fx.step[attr] = function(fx) {
+		$["fx"]["step"][attr] = function(fx) {
 
-			if (fx.xinit === void 0) {
+			if (undefined === fx["xinit"]) {
 
-				if (typeof fx.end === "string" && -1 !== fx.end.indexOf(";")) {
+				if (typeof fx["end"] === "string" && -1 !== fx["end"].indexOf(";")) {
 
-					var x, arr = fx.end.split(";");
+					var x, arr = fx["end"].split(";");
 
 					if (arr.length > 2) {
 
@@ -669,26 +674,26 @@
 							if (-1 === arr[x].indexOf('native')) {
 								arr[x] = new xColor(arr[x]);
 							} else {
-								arr[x] = findColor(fx.elem, attr);
+								arr[x] = findColor(fx["elem"], attr);
 							}
 						}
-						fx.start = null;
-						fx.end = arr;
+						fx["start"] = null;
+						fx["end"]   = arr;
 					} else {
-						fx.start = new xColor(arr[0]);
-						fx.end = new xColor(arr[1]);
+						fx["start"] = new xColor(arr[0]);
+						fx["end"]   = new xColor(arr[1]);
 					}
 				} else {
-					fx.start = findColor(fx.elem, attr);
-					fx.end = new xColor(fx.end);
+					fx["start"] = findColor(fx["elem"], attr);
+					fx["end"] = new xColor(fx["end"]);
 				}
 
-				fx.xinit = 1;
+				fx["xinit"] = 1;
 			}
 
-			var S = fx.start;
-			var E = fx.end;
-			var P = fx.pos;
+			var S = fx["start"];
+			var E = fx["end"];
+			var P = fx["pos"];
 
 			if (null === S) {
 				var m = P * (E.length - 1), n = P < 1 ? m | 0 : E.length - 2;
@@ -697,17 +702,17 @@
 				P = m - n;
 			}
 
-			if ($.support.opacity) {
-				fx.elem.style[attr] = "rgba("
-				+ ((S.r + (E.r - S.r) * P)|0) + ","
-				+ ((S.g + (E.g - S.g) * P)|0) + ","
-				+ ((S.b + (E.b - S.b) * P)|0) + ","
-				+ ((S.a + (E.a - S.a) * P)) + ")";
+			if ($["support"]["opacity"]) {
+				fx["elem"]["style"][attr] = "rgba("
+				+ ((S["r"] + (E["r"] - S["r"]) * P)|0) + ","
+				+ ((S["g"] + (E["g"] - S["g"]) * P)|0) + ","
+				+ ((S["b"] + (E["b"] - S["b"]) * P)|0) + ","
+				+ ((S["a"] + (E["a"] - S["a"]) * P)) + ")";
 			} else {
-				fx.elem.style[attr] = "rgb("
-				+ ((S.r + (E.r - S.r) * P)|0) + ","
-				+ ((S.g + (E.g - S.g) * P)|0) + ","
-				+ ((S.b + (E.b - S.b) * P)|0) + ")";
+				fx["elem"]["style"][attr] = "rgb("
+				+ ((S["r"] + (E["r"] - S["r"]) * P)|0) + ","
+				+ ((S["g"] + (E["g"] - S["g"]) * P)|0) + ","
+				+ ((S["b"] + (E["b"] - S["b"]) * P)|0) + ")";
 			}
 		}
 	});
@@ -717,15 +722,15 @@
 		var color = "";
 
 		do {
-			color = $.curCSS(elem, attr);
+			color = $["curCSS"](elem, attr);
 
-			if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $.nodeName(elem, "body")) break;
+			if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $["nodeName"](elem, "body")) break;
 
-		} while (elem = elem.parentNode);
+		} while (elem = elem["parentNode"]);
 
 		if ("" === color) {
 
-			if ($.support.opacity) {
+			if ($["support"]["opacity"]) {
 				color = "transparent";
 			} else if ("backgroundColor" === attr) {
 				color = "white";
@@ -741,71 +746,71 @@
      */
 	function xColorMix() {
 
-		this.test = function (col) {
+		this["test"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 				return c;
 			}
 			return null;
 		}
 
-		this.red = function (col) {
+		this["red"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				c.g = 0xff;
-				c.b = 0xff;
+			if (c["success"]) {
+				c["g"] = 0xff;
+				c["b"] = 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.blue = function (col) {
+		this["blue"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				c.r = 0xff;
-				c.g = 0xff;
+			if (c["success"]) {
+				c["r"] = 0xff;
+				c["g"] = 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.green = function (col) {
+		this["green"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				c.r = 0xff;
-				c.b = 0xff;
+			if (c["success"]) {
+				c["r"] = 0xff;
+				c["b"] = 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.sepia = function(col) {
+		this["sepia"] = function(col) {
 
 			var c = new xColor(col);
 
 			// Microsoft's sepia function http://msdn.microsoft.com/en-us/magazine/cc163866.aspx
-			if (c.success) {
+			if (c["success"]) {
 
-				var r = c.r, g = c.g, b = c.b;
+				var r = c["r"], g = c["g"], b = c["b"];
 
-				c.r = Math.round(r * 0.393 + g * 0.769 + b * 0.189);
-				c.g = Math.round(r * 0.349 + g * 0.686 + b * 0.168);
-				c.b = Math.round(r * 0.272 + g * 0.534 + b * 0.131);
+				c["r"] = Math.round(r * 0.393 + g * 0.769 + b * 0.189);
+				c["g"] = Math.round(r * 0.349 + g * 0.686 + b * 0.168);
+				c["b"] = Math.round(r * 0.272 + g * 0.534 + b * 0.131);
 
 				return c;
 			}
 			return null;
 		}
 
-		this.random = function () {
+		this["random"] = function () {
 
 			return new xColor([
 				(255 * Math.random())|0,
@@ -814,126 +819,126 @@
 				]);
 		}
 
-		this.inverse = function (col) {
+		this["inverse"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				c.r^= 0xff;
-				c.g^= 0xff;
-				c.b^= 0xff;
+			if (c["success"]) {
+				c["r"]^= 0xff;
+				c["g"]^= 0xff;
+				c["b"]^= 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.opacity = function (x, y, o) {
+		this["opacity"] = function (x, y, o) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
 				if (o > 1) {
 					o/= 100;
 				}
 
-				o = Math.max(o - 1 + b.a, 0);
+				o = Math.max(o - 1 + b["a"], 0);
 
-				a.r = Math.round((b.r - a.r) * o + a.r);
-				a.g = Math.round((b.g - a.g) * o + a.g);
-				a.b = Math.round((b.b - a.b) * o + a.b);
+				a["r"] = Math.round((b["r"] - a["r"]) * o + a["r"]);
+				a["g"] = Math.round((b["g"] - a["g"]) * o + a["g"]);
+				a["b"] = Math.round((b["b"] - a["b"]) * o + a["b"]);
 
 				return a;
 			}
 			return null;
 		}
 
-		this.greyfilter = function (col, formula) {
+		this["greyfilter"] = function (col, formula) {
 
 			var v, c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 				switch (formula) {
 					case 1:
 						// My own formula
-						v = .35 + 13 * (c.r + c.g + c.b) / 60;
+						v = .35 + 13 * (c["r"] + c["g"] + c["b"]) / 60;
 						break;
 					case 2:
 						// Sun's formula: (1 - avg) / (100 / 35) + avg)
-						v = (13 * (c.r + c.g + c.b) + 5355) / 60;
+						v = (13 * (c["r"] + c["g"] + c["b"]) + 5355) / 60;
 						break;
 					default:
-						v = c.r * .3 + c.g * .59 + c.b * .11;
+						v = c["r"] * .3 + c["g"] * .59 + c["b"] * .11;
 				}
-				c.r = c.g = c.b = Math.min(v|0, 255);
+				c["r"] = c["g"] = c["b"] = Math.min(v|0, 255);
 
 				return c;
 			}
 			return null;
 		}
 
-		this.webround = function (col) {
+		this["webround"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				if ((c.r+= 0x33 - c.r % 0x33) > 0xff) c.r = 0xff;
-				if ((c.g+= 0x33 - c.g % 0x33) > 0xff) c.g = 0xff;
-				if ((c.b+= 0x33 - c.b % 0x33) > 0xff) c.b = 0xff;
+			if (c["success"]) {
+				if ((c["r"]+= 0x33 - c["r"] % 0x33) > 0xff) c["r"] = 0xff;
+				if ((c["g"]+= 0x33 - c["g"] % 0x33) > 0xff) c["g"] = 0xff;
+				if ((c["b"]+= 0x33 - c["b"] % 0x33) > 0xff) c["b"] = 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.distance = function (x, y) {
+		this["distance"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 				// Approximation attempt of http://www.compuphase.com/cmetric.htm
-				return Math.sqrt(3 * (b.r - a.r) * (b.r - a.r) + 4 * (b.g - a.g) * (b.g - a.g) + 2 * (b.b - a.b) * (b.b - a.b));
+				return Math.sqrt(3 * (b["r"] - a["r"]) * (b["r"] - a["r"]) + 4 * (b["g"] - a["g"]) * (b["g"] - a["g"]) + 2 * (b["b"] - a["b"]) * (b["b"] - a["b"]));
 			}
 			return null;
 		}
 
-		this.readable = function (bg, col) {
+		this["readable"] = function (bg, col) {
 
 			var a = new xColor(col);
 			var b = new xColor(bg);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 				return (
-					(b.r - a.r) * (b.r - a.r) +
-					(b.g - a.g) * (b.g - a.g) +
-					(b.b - a.b) * (b.b - a.b)) > 0x28A4;
+					(b["r"] - a["r"]) * (b["r"] - a["r"]) +
+					(b["g"] - a["g"]) * (b["g"] - a["g"]) +
+					(b["b"] - a["b"]) * (b["b"] - a["b"])) > 0x28A4;
 			}
 			return null;
 		}
 
-		this.combine = function (x, y) {
+		this["combine"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
-				a.r^= b.r;
-				a.g^= b.g;
-				a.b^= b.b;
+			if (a["success"] & b["success"]) {
+				a["r"]^= b["r"];
+				a["g"]^= b["g"];
+				a["b"]^= b["b"];
 				return a;
 			}
 			return null;
 		}
 
-		this.breed = function (x, y) {
+		this["breed"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
 			var mask = 0, i = 6;
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
 				while (i--) {
 					if (Math.random() < .5) {
@@ -941,138 +946,138 @@
 					}
 				}
 
-				a.r = (a.r & ((mask >> 0x10) & 0xff)) | (b.r & (((mask >> 0x10) & 0xff) ^ 0xff));
-				a.g = (a.g & ((mask >> 0x08) & 0xff)) | (b.g & (((mask >> 0x08) & 0xff) ^ 0xff));
-				a.b = (a.b & ((mask >> 0x00) & 0xff)) | (b.b & (((mask >> 0x00) & 0xff) ^ 0xff));
+				a["r"] = (a["r"] & ((mask >> 0x10) & 0xff)) | (b["r"] & (((mask >> 0x10) & 0xff) ^ 0xff));
+				a["g"] = (a["g"] & ((mask >> 0x08) & 0xff)) | (b["g"] & (((mask >> 0x08) & 0xff) ^ 0xff));
+				a["b"] = (a["b"] & ((mask >> 0x00) & 0xff)) | (b["b"] & (((mask >> 0x00) & 0xff) ^ 0xff));
 				return a;
 			}
 			return null;
 		}
 
-		this.additive = function (x, y) {
+		this["additive"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
-				if ((a.r+= b.r) > 0xff) a.r = 0xff;
-				if ((a.g+= b.g) > 0xff) a.g = 0xff;
-				if ((a.b+= b.b) > 0xff) a.b = 0xff;
+				if ((a["r"]+= b["r"]) > 0xff) a["r"] = 0xff;
+				if ((a["g"]+= b["g"]) > 0xff) a["g"] = 0xff;
+				if ((a["b"]+= b["b"]) > 0xff) a["b"] = 0xff;
 
 				return a;
 			}
 			return null;
 		}
 
-		this.subtractive = function (x, y) {
+		this["subtractive"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
-				if ((a.r+= b.r - 0xff) < 0) a.r = 0;
-				if ((a.g+= b.g - 0xff) < 0) a.g = 0;
-				if ((a.b+= b.b - 0xff) < 0) a.b = 0;
+				if ((a["r"]+= b["r"] - 0xff) < 0) a["r"] = 0;
+				if ((a["g"]+= b["g"] - 0xff) < 0) a["g"] = 0;
+				if ((a["b"]+= b["b"] - 0xff) < 0) a["b"] = 0;
 
 				return a;
 			}
 			return null;
 		}
 
-		this.subtract = function (x, y) {
+		this["subtract"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
-				if ((a.r-= b.r) < 0) a.r = 0;
-				if ((a.g-= b.g) < 0) a.g = 0;
-				if ((a.b-= b.b) < 0) a.b = 0;
+				if ((a["r"]-= b["r"]) < 0) a["r"] = 0;
+				if ((a["g"]-= b["g"]) < 0) a["g"] = 0;
+				if ((a["b"]-= b["b"]) < 0) a["b"] = 0;
 
 				return a;
 			}
 			return null;
 		}
 
-		this.multiply = function (x, y) {
+		this["multiply"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
-				a.r = (a.r / 255 * b.r)|0;
-				a.g = (a.g / 255 * b.g)|0;
-				a.b = (a.b / 255 * b.b)|0;
+			if (a["success"] & b["success"]) {
+				a["r"] = (a["r"] / 255 * b["r"])|0;
+				a["g"] = (a["g"] / 255 * b["g"])|0;
+				a["b"] = (a["b"] / 255 * b["b"])|0;
 				return a;
 			}
 			return null;
 		}
 
-		this.average = function (x, y) {
+		this["average"] = function (x, y) {
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
-				a.r = (a.r + b.r) >> 1;
-				a.g = (a.g + b.g) >> 1;
-				a.b = (a.b + b.b) >> 1;
+			if (a["success"] & b["success"]) {
+				a["r"] = (a["r"] + b["r"]) >> 1;
+				a["g"] = (a["g"] + b["g"]) >> 1;
+				a["b"] = (a["b"] + b["b"]) >> 1;
 				return a;
 			}
 			return null;
 		}
 
-		this.triad = function (col) {
+		this["triad"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 
 				return [c,
-				new xColor([c.b, c.r, c.g]),
-				new xColor([c.g, c.b, c.r])];
+				new xColor([c["b"], c["r"], c["g"]]),
+				new xColor([c["g"], c["b"], c["r"]])];
 			}
 			return null;
 		}
 
-		this.tetrad = function (col) {
+		this["tetrad"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 
 				return [c,
-				new xColor([c.b, c.r, c.b]),
-				new xColor([c.b, c.g, c.r]),
-				new xColor([c.r, c.b, c.r])];
+				new xColor([c["b"], c["r"], c["b"]]),
+				new xColor([c["b"], c["g"], c["r"]]),
+				new xColor([c["r"], c["b"], c["r"]])];
 			}
 			return null;
 		}
 
-		this.gradientlevel = function (x, y, level, deg) {
+		this["gradientlevel"] = function (x, y, level, deg) {
 
-			if (void 0 === deg) deg = 1;
+			if (undefined === deg) deg = 1;
 
 			if (level > deg) return null;
 
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
-				a.r = (a.r + ((b.r - a.r) / deg) * level)|0;
-				a.g = (a.g + ((b.g - a.g) / deg) * level)|0;
-				a.b = (a.b + ((b.b - a.b) / deg) * level)|0;
+				a["r"] = (a["r"] + ((b["r"] - a["r"]) / deg) * level)|0;
+				a["g"] = (a["g"] + ((b["g"] - a["g"]) / deg) * level)|0;
+				a["b"] = (a["b"] + ((b["b"] - a["b"]) / deg) * level)|0;
 
 				return a;
 			}
 			return null;
 		}
 
-		this.gradientarray = function (arr, ndx, size) {
+		this["gradientarray"] = function (arr, ndx, size) {
 
 			if (ndx > size) return null;
 
@@ -1082,89 +1087,89 @@
 			var a = new xColor(arr[e]);
 			var b = new xColor(arr[e + 1]);
 
-			if (a.success & b.success) {
+			if (a["success"] & b["success"]) {
 
-				a.r = (a.r + arr.length * (b.r - a.r) * m)|0;
-				a.g = (a.g + arr.length * (b.g - a.g) * m)|0;
-				a.b = (a.b + arr.length * (b.b - a.b) * m)|0;
+				a["r"] = (a["r"] + arr.length * (b["r"] - a["r"]) * m)|0;
+				a["g"] = (a["g"] + arr.length * (b["g"] - a["g"]) * m)|0;
+				a["b"] = (a["b"] + arr.length * (b["b"] - a["b"]) * m)|0;
 
 				return a;
 			}
 			return null;
 		}
 
-		this.nearestname = function (a) {
+		this["nearestname"] = function (a) {
 
 			a = new xColor(a);
 
-			if (a.success) {
-				return a.getName();
+			if (a["success"]) {
+				return a["getName"]();
 			}
 			return null;
 		}
 
-		this.darken = function (col, by, shade) {
+		this["darken"] = function (col, by, shade) {
 
-			if (by === void 0) {
+			if (by === undefined) {
 				by = 1;
-			} else if (by < 0) return this.lighten(col, -by, shade);
+			} else if (by < 0) return this["lighten"](col, -by, shade);
 
-			if (shade === void 0) {
+			if (shade === undefined) {
 				shade = 32;
 			}
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				if ((c.r-= shade * by) < 0) c.r = 0;
-				if ((c.g-= shade * by) < 0) c.g = 0;
-				if ((c.b-= shade * by) < 0) c.b = 0;
+			if (c["success"]) {
+				if ((c["r"]-= shade * by) < 0) c["r"] = 0;
+				if ((c["g"]-= shade * by) < 0) c["g"] = 0;
+				if ((c["b"]-= shade * by) < 0) c["b"] = 0;
 				return c;
 			}
 			return null;
 		}
 
-		this.lighten = function (col, by, shade) {
+		this["lighten"] = function (col, by, shade) {
 
-			if (by === void 0) {
+			if (by === undefined) {
 				by = 1;
-			} else if (by < 0) return this.darken(col, -by, shade);
+			} else if (by < 0) return this["darken"](col, -by, shade);
 
-			if (shade === void 0) {
+			if (shade === undefined) {
 				shade = 32;
 			}
 
 			var c = new xColor(col);
 
-			if (c.success) {
-				if ((c.r+= shade * by) > 0xff) c.r = 0xff;
-				if ((c.g+= shade * by) > 0xff) c.g = 0xff;
-				if ((c.b+= shade * by) > 0xff) c.b = 0xff;
+			if (c["success"]) {
+				if ((c["r"]+= shade * by) > 0xff) c["r"] = 0xff;
+				if ((c["g"]+= shade * by) > 0xff) c["g"] = 0xff;
+				if ((c["b"]+= shade * by) > 0xff) c["b"] = 0xff;
 				return c;
 			}
 			return null;
 		}
 
-		this.analogous = function (col, results, slices) {
+		this["analogous"] = function (col, results, slices) {
 
-			if (results === void 0) {
+			if (results === undefined) {
 				results = 8;
 			}
 
-			if (slices === void 0) {
+			if (slices === undefined) {
 				slices = 30;
 			}
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 
-				var hsv = c.getHSV();
+				var hsv = c["getHSV"]();
 				var part = 360 / slices, ret = [ c ];
 
-				for (hsv.h = ((hsv.h - (part * results >> 1)) + 720) % 360; --results; ) {
-					hsv.h+= part;
-					hsv.h%= 360;
+				for (hsv["h"] = ((hsv["h"] - (part * results >> 1)) + 720) % 360; --results; ) {
+					hsv["h"]+= part;
+					hsv["h"]%= 360;
 					ret.push(new xColor(hsv));
 				}
 				return ret;
@@ -1172,36 +1177,36 @@
 			return null;
 		}
 
-		this.complementary = function(col) {
+		this["complementary"] = function(col) {
 
 			var c = new xColor(col);
 
-			if(c.success) {
+			if(c["success"]) {
 
-				var hsl = c.getHSL();
+				var hsl = c["getHSL"]();
 
-				hsl.h = (hsl.h + 180) % 360;
+				hsl["h"] = (hsl["h"] + 180) % 360;
 
 				return new xColor(hsl);
 			}
 			return null;
 		}
 
-		this.splitcomplement = function (col) {
+		this["splitcomplement"] = function (col) {
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 
-				var hsv = c.getHSV();
+				var hsv = c["getHSV"]();
 				var ret = [ c ];
 
-				hsv.h+= 72;
-				hsv.h%= 360;
+				hsv["h"]+= 72;
+				hsv["h"]%= 360;
 				ret.push(new xColor(hsv));
 
-				hsv.h+= 144;
-				hsv.h%= 360;
+				hsv["h"]+= 144;
+				hsv["h"]%= 360;
 				ret.push(new xColor(hsv));
 
 				return ret;
@@ -1209,22 +1214,22 @@
 			return null;
 		}
 
-		this.monochromatic = function (col, results) {
+		this["monochromatic"] = function (col, results) {
 
-			if (results === void 0) {
+			if (results === undefined) {
 				results = 6;
 			}
 
 			var c = new xColor(col);
 
-			if (c.success) {
+			if (c["success"]) {
 
-				var hsv = c.getHSV();
+				var hsv = c["getHSV"]();
 				var ret = [ c ];
 
 				while (--results) {
-					hsv.v+= 20;
-					hsv.v%= 100;
+					hsv["v"]+= 20;
+					hsv["v"]%= 100;
 					ret.push(new xColor(hsv));
 				}
 				return ret;
@@ -1233,9 +1238,9 @@
 		}
 	}
 
-	$.xcolor = new xColorMix();
+	$["xcolor"] = new xColorMix();
 
-	$.fn.isReadable = function () {
+	$["fn"]["isReadable"] = function () {
 
 		var elem = this[0];
 		var f = "";
@@ -1243,19 +1248,19 @@
 
 		do {
 
-			if ("" === f && ("transparent" === (f = $.curCSS(elem, "color")) || "rgba(0, 0, 0, 0)" === f)) {
+			if ("" === f && ("transparent" === (f = $["curCSS"](elem, "color")) || "rgba(0, 0, 0, 0)" === f)) {
 				f = "";
 			}
 
-			if ("" === b && ("transparent" === (b = $.curCSS(elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" === b)) {
+			if ("" === b && ("transparent" === (b = $["curCSS"](elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" === b)) {
 				b = "";
 			}
 
-			if ("" !== f && "" !== b || $.nodeName(elem, "body")) {
+			if ("" !== f && "" !== b || $["nodeName"](elem, "body")) {
 				break;
 			}
 
-		} while (elem = elem.parentNode);
+		} while (elem = elem["parentNode"]);
 
 		if ("" === f) {
 			f = "black";
@@ -1266,10 +1271,10 @@
 		}
 
 		// todo: if alpha != 1, use opacity() to calculate correct color on certain element and it's parent
-		return $.xcolor.readable(b, f);
+		return $["xcolor"]["readable"](b, f);
 	}
 
-	$.fn.colorize = function (FROM, TO, TYPE) {
+	$["fn"]["colorize"] = function (FROM, TO, TYPE) {
 
 		if (!TYPE) {
 			TYPE = 0;
@@ -1278,13 +1283,13 @@
 		}
 
 		var elem = this[0],
-		    FROM = new xColor(FROM),
-			TO   = new xColor(TO),
 			tmp  = elem.childNodes,
 			LEN  = 0,
 			K    = 0;
+		    FROM = new xColor(FROM);
+			TO   = new xColor(TO);
 
-		if (FROM.success & TO.success) {
+		if (FROM["success"] & TO["success"]) {
 
 			for (i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
 
@@ -1314,17 +1319,17 @@
 								if(c !== ' ') diff =!diff;
 
 								elem.style.color = 'rgb('
-								+(diff ? x.r : y.r)+','
-								+(diff ? x.g : y.g)+','
-								+(diff ? x.b : y.b)+')';
+								+(diff ? x["r"] : y["r"])+','
+								+(diff ? x["g"] : y["g"])+','
+								+(diff ? x["b"] : y["b"])+')';
 							} else {
 
 								diff = K / l;
 
 								elem.style.color = 'rgb('
-								+((x.r + (y.r - x.r) * diff)|0)+','
-								+((x.g + (y.g - x.g) * diff)|0)+','
-								+((x.b + (y.b - x.b) * diff)|0)+')';
+								+((x["r"] + (y["r"] - x["r"]) * diff)|0)+','
+								+((x["g"] + (y["g"] - x["g"]) * diff)|0)+','
+								+((x["b"] + (y["b"] - x["b"]) * diff)|0)+')';
 							}
 
 							elem.appendChild(document.createTextNode(
