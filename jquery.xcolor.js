@@ -1,13 +1,11 @@
 /**
- * @license jQuery xcolor plugin
+ * @license jQuery xcolor plugin v1.7
+ * http://www.xarg.org/project/jquery-color-plugin-xcolor/
+ *
  * Copyright (c) 2010, Robert Eisele (robert@xarg.org)
  * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
  * Date: 06/21/2010
- *
- * @author Robert Eisele
- * @version 1.7
- *
- * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
 
 (function ($) {
@@ -278,7 +276,7 @@
 
 		this["setColor"] = function (color) {
 
-			this["success"] = true;
+			this.success = true;
 
 			if (typeof color === "number") {
 
@@ -327,7 +325,7 @@
 			}
 
 			if (typeof color !== "string") {
-				this["success"] = false;
+				this.success = false;
 				return;
 			}
 
@@ -432,7 +430,7 @@
 				return;
 			}
 
-			this["success"] = false;
+			this.success = false;
 		}
 
 		this["getColor"] = function (type) {
@@ -462,7 +460,7 @@
 
 		this["getRGB"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				return {
 					"r": this["r"],
@@ -476,7 +474,7 @@
 
 		this["getCSS"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				if (this["a"] == 1) {
 					return 'rgb(' + this["r"] + ', ' + this["g"] + ', ' + this["b"] + ')';
@@ -488,7 +486,7 @@
 
 		this["getArray"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 				return [this["r"], this["g"], this["b"], this["a"] * 100 | 0];
 			}
 			return null;
@@ -496,7 +494,7 @@
 
 		this["getName"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				var lowest = null;
 				var lowest_ndx;
@@ -524,7 +522,7 @@
 
 		this["getFraction"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				return {
 					"r": this["r"] / 255,
@@ -539,7 +537,7 @@
 		this["getHSL"] = function () {
 
 			// inspiration: http://130.113.54.154/~monger/hsl-rgb.html
-			if (this["success"]) {
+			if (this.success) {
 
 				var r = this["r"] / 255;
 				var g = this["g"] / 255;
@@ -581,7 +579,7 @@
 
 		this["getHSV"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				var r = this["r"] / 255;
 				var g = this["g"] / 255;
@@ -628,7 +626,7 @@
 
 		this["getHex"] = function () {
 
-			if (this["success"]) {
+			if (this.success) {
 
 				var chars = "0123456789abcdef";
 
@@ -653,7 +651,7 @@
 
 		this["getInt"] = function (alpha) {
 
-			if (this["success"]) {
+			if (this.success) {
 				if (undefined !== alpha) {
 					return ((this["a"] * 100 | 0) << 24 ^ this["r"] << 16 ^ this["g"] << 8 ^ this["b"]);
 				}
@@ -761,7 +759,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				return c;
 			}
 			return null;
@@ -771,7 +769,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				c["g"] = 0xff;
 				c["b"] = 0xff;
 				return c;
@@ -783,7 +781,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				c["r"] = 0xff;
 				c["g"] = 0xff;
 				return c;
@@ -795,7 +793,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				c["r"] = 0xff;
 				c["b"] = 0xff;
 				return c;
@@ -808,7 +806,7 @@
 			var c = new xColor(col);
 
 			// Microsoft's sepia function http://msdn.microsoft.com/en-us/magazine/cc163866.aspx
-			if (c["success"]) {
+			if (c.success) {
 
 				var r = c["r"], g = c["g"], b = c["b"];
 
@@ -834,7 +832,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				c["r"]^= 0xff;
 				c["g"]^= 0xff;
 				c["b"]^= 0xff;
@@ -848,7 +846,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				if (o > 1) {
 					o/= 100;
@@ -869,7 +867,7 @@
 
 			var v, c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				switch (formula) {
 					case 1:
 						// My own formula
@@ -893,7 +891,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				if ((c["r"]+= 0x33 - c["r"] % 0x33) > 0xff) c["r"] = 0xff;
 				if ((c["g"]+= 0x33 - c["g"] % 0x33) > 0xff) c["g"] = 0xff;
 				if ((c["b"]+= 0x33 - c["b"] % 0x33) > 0xff) c["b"] = 0xff;
@@ -907,7 +905,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 				// Approximation attempt of http://www.compuphase.com/cmetric.htm
 				return Math.sqrt(3 * (b["r"] - a["r"]) * (b["r"] - a["r"]) + 4 * (b["g"] - a["g"]) * (b["g"] - a["g"]) + 2 * (b["b"] - a["b"]) * (b["b"] - a["b"]));
 			}
@@ -919,7 +917,7 @@
 			var a = new xColor(col);
 			var b = new xColor(bg);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 				return (
 					(b["r"] - a["r"]) * (b["r"] - a["r"]) +
 					(b["g"] - a["g"]) * (b["g"] - a["g"]) +
@@ -933,7 +931,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 				a["r"]^= b["r"];
 				a["g"]^= b["g"];
 				a["b"]^= b["b"];
@@ -949,7 +947,7 @@
 
 			var mask = 0, i = 6;
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				while (i--) {
 					if (Math.random() < .5) {
@@ -970,7 +968,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				if ((a["r"]+= b["r"]) > 0xff) a["r"] = 0xff;
 				if ((a["g"]+= b["g"]) > 0xff) a["g"] = 0xff;
@@ -986,7 +984,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				if ((a["r"]+= b["r"] - 0xff) < 0) a["r"] = 0;
 				if ((a["g"]+= b["g"] - 0xff) < 0) a["g"] = 0;
@@ -1002,7 +1000,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				if ((a["r"]-= b["r"]) < 0) a["r"] = 0;
 				if ((a["g"]-= b["g"]) < 0) a["g"] = 0;
@@ -1018,7 +1016,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 				a["r"] = (a["r"] / 255 * b["r"])|0;
 				a["g"] = (a["g"] / 255 * b["g"])|0;
 				a["b"] = (a["b"] / 255 * b["b"])|0;
@@ -1032,7 +1030,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 				a["r"] = (a["r"] + b["r"]) >> 1;
 				a["g"] = (a["g"] + b["g"]) >> 1;
 				a["b"] = (a["b"] + b["b"]) >> 1;
@@ -1045,7 +1043,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 
 				return [c,
 				new xColor([c["b"], c["r"], c["g"]]),
@@ -1058,7 +1056,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 
 				return [c,
 				new xColor([c["b"], c["r"], c["b"]]),
@@ -1077,7 +1075,7 @@
 			var a = new xColor(x);
 			var b = new xColor(y);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				a["r"] = (a["r"] + ((b["r"] - a["r"]) / deg) * level)|0;
 				a["g"] = (a["g"] + ((b["g"] - a["g"]) / deg) * level)|0;
@@ -1098,7 +1096,7 @@
 			var a = new xColor(arr[e]);
 			var b = new xColor(arr[e + 1]);
 
-			if (a["success"] & b["success"]) {
+			if (a.success & b.success) {
 
 				a["r"] = (a["r"] + arr.length * (b["r"] - a["r"]) * m)|0;
 				a["g"] = (a["g"] + arr.length * (b["g"] - a["g"]) * m)|0;
@@ -1113,7 +1111,7 @@
 
 			a = new xColor(a);
 
-			if (a["success"]) {
+			if (a.success) {
 				return a["getName"]();
 			}
 			return null;
@@ -1121,17 +1119,17 @@
 
 		this["darken"] = function (col, by, shade) {
 
-			if (by === undefined) {
+			if (undefined === by) {
 				by = 1;
 			} else if (by < 0) return this["lighten"](col, -by, shade);
 
-			if (shade === undefined) {
+			if (undefined === shade) {
 				shade = 32;
 			}
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				if ((c["r"]-= shade * by) < 0) c["r"] = 0;
 				if ((c["g"]-= shade * by) < 0) c["g"] = 0;
 				if ((c["b"]-= shade * by) < 0) c["b"] = 0;
@@ -1142,17 +1140,17 @@
 
 		this["lighten"] = function (col, by, shade) {
 
-			if (by === undefined) {
+			if (undefined === by) {
 				by = 1;
 			} else if (by < 0) return this["darken"](col, -by, shade);
 
-			if (shade === undefined) {
+			if (undefined === shade) {
 				shade = 32;
 			}
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 				if ((c["r"]+= shade * by) > 0xff) c["r"] = 0xff;
 				if ((c["g"]+= shade * by) > 0xff) c["g"] = 0xff;
 				if ((c["b"]+= shade * by) > 0xff) c["b"] = 0xff;
@@ -1163,17 +1161,17 @@
 
 		this["analogous"] = function (col, results, slices) {
 
-			if (results === undefined) {
+			if (undefined === results) {
 				results = 8;
 			}
 
-			if (slices === undefined) {
+			if (undefined === slices) {
 				slices = 30;
 			}
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 
 				var hsv = c["getHSV"]();
 				var part = 360 / slices, ret = [ c ];
@@ -1192,7 +1190,7 @@
 
 			var c = new xColor(col);
 
-			if(c["success"]) {
+			if(c.success) {
 
 				var hsl = c["getHSL"]();
 
@@ -1207,7 +1205,7 @@
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 
 				var hsv = c["getHSV"]();
 				var ret = [ c ];
@@ -1227,13 +1225,13 @@
 
 		this["monochromatic"] = function (col, results) {
 
-			if (results === undefined) {
+			if (undefined === results) {
 				results = 6;
 			}
 
 			var c = new xColor(col);
 
-			if (c["success"]) {
+			if (c.success) {
 
 				var hsv = c["getHSV"]();
 				var ret = [ c ];
@@ -1293,72 +1291,93 @@
 			return;
 		}
 
-		var elem = this[0],
-			tmp  = elem.childNodes,
-			LEN  = 0,
-			K    = 0;
-		    FROM = new xColor(FROM);
-			TO   = new xColor(TO);
+		FROM = new xColor(FROM);
+		TO   = new xColor(TO);
 
-		if (FROM["success"] & TO["success"]) {
+		this["each"](function() {
 
-			for (i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
+			var tmp  = this.childNodes,
+				LEN  = 0,
+				K    = 0;
 
-			(function replace(node) {
+			if (FROM.success & TO.success) {
 
-				var i = 0,
-					len;
+				for (i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
 
-				if (3 === node.nodeType) {
+				(function replace(node) {
 
-						var x = FROM;
-						var y = TO;
-						var l = LEN;
-						var t = TYPE;
-						var elem, ctx, diff = 0, c;
+					var i = 0,
+						len;
 
-						len = node.nodeValue.length;
-						ctx = document.createElement('span');
+					if (3 === node.nodeType) {
 
-						for (i=0; i<len; ++i) {
+							var x = FROM;
+							var y = TO;
+							var l = LEN;
+							var t = TYPE;
+							var elem, ctx, diff = 0, c;
 
-							elem = document.createElement('span');
-							c    = node.nodeValue.charAt(i);
+							len = node.nodeValue.length;
+							ctx = document.createElement('span');
 
-							if (t) {
+							for (i=0; i<len; ++i) {
 
-								if(c !== ' ') diff =!diff;
+								elem = document.createElement('span');
+								c    = node.nodeValue.charAt(i);
 
-								elem["style"]["color"] = 'rgb('
-								+(diff ? x["r"] : y["r"])+','
-								+(diff ? x["g"] : y["g"])+','
-								+(diff ? x["b"] : y["b"])+')';
-							} else {
+								if (t) {
 
-								diff = K / l;
+									if(c !== ' ') diff =!diff;
 
-								elem["style"]["color"] = 'rgb('
-								+((x["r"] + (y["r"] - x["r"]) * diff)|0)+','
-								+((x["g"] + (y["g"] - x["g"]) * diff)|0)+','
-								+((x["b"] + (y["b"] - x["b"]) * diff)|0)+')';
+									elem["style"]["color"] = 'rgb('
+									+(diff ? x["r"] : y["r"])+','
+									+(diff ? x["g"] : y["g"])+','
+									+(diff ? x["b"] : y["b"])+')';
+								} else {
+
+									diff = K / l;
+
+									elem["style"]["color"] = 'rgb('
+									+((x["r"] + (y["r"] - x["r"]) * diff)|0)+','
+									+((x["g"] + (y["g"] - x["g"]) * diff)|0)+','
+									+((x["b"] + (y["b"] - x["b"]) * diff)|0)+')';
+								}
+
+								elem.appendChild(document.createTextNode(
+											c
+										)
+								);
+								ctx.appendChild(elem);
+								++K;
 							}
+							node.parentNode.replaceChild(ctx, node);
 
-							elem.appendChild(document.createTextNode(
-										c
-									)
-							);
-							ctx.appendChild(elem);
-							++K;
+					} else {
+						for (len = node.childNodes.length; i < len; ++i) {
+							replace(node.childNodes[i]);
 						}
-						node.parentNode.replaceChild(ctx, node);
-
-				} else {
-					for (len = node.childNodes.length; i < len; ++i) {
-						replace(node.childNodes[i]);
 					}
-				}
-			})(elem);
+				})(this);
 
+			}
+		});
+	}
+
+	$["fn"]["colorset"] = function (color, attr) {
+
+		if (undefined === attr) {
+			attr = 'color';
+		}
+
+		color = new xColor(color);
+
+		if (color.success) {
+			color = color["getCSS"]();
+
+			this["each"](function() {
+
+				$(this)["css"](attr, color);
+			});
 		}
 	}
 
