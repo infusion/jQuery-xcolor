@@ -5,7 +5,7 @@
  * Date: 06/21/2010
  *
  * @author Robert Eisele
- * @version 1.6
+ * @version 1.7
  *
  * @see http://www.xarg.org/project/jquery-color-plugin-xcolor/
  **/
@@ -171,8 +171,8 @@
 
 		/**
 		 * normalize function
-		 * @param {(number|string)=} n (optional).
-		 * @param {(number|string)=} s (optional).
+		 * @param {(number|string)=} n (optional)
+		 * @param {(number|string)=} s (optional)
 		 */
 		function _normalize(n, s) {
 
@@ -234,7 +234,7 @@
 				return v1;
 			}
 
-			var v = l < 0.5 ? (l + l * s) : (l + s - l * s);
+			var v = l < .5 ? (l + l * s) : (l + s - l * s);
 			var m = l + l - v;
 
 			return [
@@ -340,6 +340,17 @@
 				c = color_names[color];
 
 				this["a"] =(!((c >> 24) & 0xff))|0;
+				this["r"] =  ((c >> 16) & 0xff);
+				this["g"] =  ((c >>  8) & 0xff);
+				this["b"] =  ((c      ) & 0xff);
+				return;
+			}
+
+			if ('rand' === color) {
+
+				c = Math.random() * 0xffffff|0;
+
+				this["a"] = 1;
 				this["r"] =  ((c >> 16) & 0xff);
 				this["g"] =  ((c >>  8) & 0xff);
 				this["b"] =  ((c      ) & 0xff);
@@ -499,7 +510,7 @@
 					/* We do not handle transparency */
 					var b = new xColor(table[i])["getHSL"]();
 
-					var tmp = Math.sqrt(0.5 * (a["h"] - b["h"]) * (a["h"] - b["h"]) + 0.5 * (a["s"] - b["s"]) * (a["s"] - b["s"]) + (a["l"] - b["l"]) * (a["l"] - b["l"]));
+					var tmp = Math.sqrt(.5 * (a["h"] - b["h"]) * (a["h"] - b["h"]) + .5 * (a["s"] - b["s"]) * (a["s"] - b["s"]) + (a["l"] - b["l"]) * (a["l"] - b["l"]));
 
 					if (null === lowest || tmp < lowest) {
 						lowest = tmp;
@@ -556,7 +567,7 @@
 					if (h < 0) {
 						h+= 6;
 					}
-					s = delta / (l < 0.5 ? max + min : 2 - max - min);
+					s = delta / (l < .5 ? max + min : 2 - max - min);
 				}
 				return {
 					"h": Math.round(h * 60),
@@ -801,9 +812,9 @@
 
 				var r = c["r"], g = c["g"], b = c["b"];
 
-				c["r"] = Math.round(r * 0.393 + g * 0.769 + b * 0.189);
-				c["g"] = Math.round(r * 0.349 + g * 0.686 + b * 0.168);
-				c["b"] = Math.round(r * 0.272 + g * 0.534 + b * 0.131);
+				c["r"] = Math.round(r * .393 + g * .769 + b * .189);
+				c["g"] = Math.round(r * .349 + g * .686 + b * .168);
+				c["b"] = Math.round(r * .272 + g * .534 + b * .131);
 
 				return c;
 			}
@@ -1318,7 +1329,7 @@
 
 								if(c !== ' ') diff =!diff;
 
-								elem.style.color = 'rgb('
+								elem["style"]["color"] = 'rgb('
 								+(diff ? x["r"] : y["r"])+','
 								+(diff ? x["g"] : y["g"])+','
 								+(diff ? x["b"] : y["b"])+')';
@@ -1326,7 +1337,7 @@
 
 								diff = K / l;
 
-								elem.style.color = 'rgb('
+								elem["style"]["color"] = 'rgb('
 								+((x["r"] + (y["r"] - x["r"]) * diff)|0)+','
 								+((x["g"] + (y["g"] - x["g"]) * diff)|0)+','
 								+((x["b"] + (y["b"] - x["b"]) * diff)|0)+')';
