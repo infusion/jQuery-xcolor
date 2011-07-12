@@ -26,6 +26,7 @@
 		"blueviolet": 9055202,
 		"brown": 10824234,
 		"burlywood": 14596231,
+		"burntsienna": 15367773,
 		"cadetblue": 6266528,
 		"chartreuse": 8388352,
 		"chocolate": 13789470,
@@ -724,10 +725,10 @@
 			}
 
 			fx["elem"]["style"][attr] = _RGBAtoCSS(
-				S.r + P * (E.r - S.r)|0,
-				S.g + P * (E.g - S.g)|0,
-				S.b + P * (E.b - S.b)|0,
-				S.a + P * (E.a - S.a)
+				S["r"] + P * (E["r"] - S["r"])|0,
+				S["g"] + P * (E["g"] - S["g"])|0,
+				S["b"] + P * (E["b"] - S["b"])|0,
+				S["a"] + P * (E["a"] - S["a"])
 			);
 		}
 	});
