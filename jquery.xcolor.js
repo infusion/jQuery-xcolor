@@ -1,5 +1,5 @@
 /**
- * @license jQuery xcolor plugin v1.7
+ * @license jQuery xcolor plugin v1.8
  * http://www.xarg.org/project/jquery-color-plugin-xcolor/
  *
  * Copyright (c) 2010, Robert Eisele (robert@xarg.org)
@@ -7,7 +7,7 @@
  *
  * Date: 06/21/2010
  **/
-
+// ([^a-z."/])m([^a-z:"])
 (function ($) {
 
 	// http://www.w3.org/TR/css3-color/#svg-color
@@ -356,7 +356,7 @@
 			}
 
 			// 53892983
-			if (part = /^([1-9]\d*)$/.exec(color)) {
+			if ((part = /^([1-9]\d*)$/.exec(color))) {
 
 				c = parseInt(part[1], 10);
 
@@ -368,7 +368,7 @@
 			}
 
 			// #ff9000, #ff0000
-			if (part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color)) {
+			if ((part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color))) {
 				this["a"] = 1;
 				this["r"] = parseInt(part[1], 16);
 				this["g"] = parseInt(part[2], 16);
@@ -377,7 +377,7 @@
 			}
 
 			// #f00, fff
-			if (part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color)) {
+			if ((part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color))) {
 				this["a"] = 1;
 				this["r"] = parseInt(part[1] + part[1], 16);
 				this["g"] = parseInt(part[2] + part[2], 16);
@@ -386,7 +386,7 @@
 			}
 
 			// rgb(1, 234, 56)
-			if (part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
+			if ((part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
 				this["a"] = _normalize(part[5], 1);
 				this["r"] = _normalize(part[1]);
 				this["g"] = _normalize(part[2]);
@@ -395,7 +395,7 @@
 			}
 
 			// rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
-			if (part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color)) {
+			if ((part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color))) {
 				this["a"] = _normalize(part[5], 1);
 				this["r"] = Math.round(2.55 * _normalize(part[1], 100));
 				this["g"] = Math.round(2.55 * _normalize(part[2], 100));
@@ -404,7 +404,7 @@
 			}
 
 			// hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
-			if (part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color)) {
+			if ((part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
 				var func;
 				if (part[1] === "l") {
 					func = _hsl;
@@ -422,7 +422,7 @@
 			}
 
 			// 1, 234, 56
-			if (part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color)) {
+			if ((part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color))) {
 				this["a"] = _normalize(part[5], 1);
 				this["r"] = _normalize(part[1]);
 				this["g"] = _normalize(part[2]);
@@ -477,9 +477,9 @@
 			if (this.success) {
 
 				if (this["a"] == 1) {
-					return 'rgb(' + this["r"] + ', ' + this["g"] + ', ' + this["b"] + ')';
+					return 'rgb(' + this["r"] + ',' + this["g"] + ',' + this["b"] + ')';
 				}
-				return 'rgba(' + this["r"] + ', ' + this["g"] + ', ' + this["b"] + ', ' + this["a"] + ')';
+				return 'rgba(' + this["r"] + ',' + this["g"] + ',' + this["b"] + ',' + this["a"] + ')';
 			}
 			return null;
 		}
@@ -669,6 +669,13 @@
 
 	$["each"](['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'outlineColor'], function(i, attr) {
 
+		$["cssHooks"][attr] = {
+
+			"set": function(elem, value) {
+				elem["style"][attr] = (new xColor(value))["getCSS"]();
+			}
+		};
+
 		$["fx"]["step"][attr] = function(fx) {
 
 			if (undefined === fx["xinit"]) {
@@ -735,7 +742,7 @@
 
 			if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $["nodeName"](elem, "body")) break;
 
-		} while (elem = elem["parentNode"]);
+		} while ((elem = elem["parentNode"]));
 
 		if ("" === color) {
 
@@ -1249,7 +1256,7 @@
 
 	$["xcolor"] = new xColorMix();
 
-	$["fn"]["isReadable"] = function () {
+	$["fn"]["readable"] = function () {
 
 		var elem = this[0];
 		var f = "";
@@ -1269,7 +1276,7 @@
 				break;
 			}
 
-		} while (elem = elem["parentNode"]);
+		} while ((elem = elem["parentNode"]));
 
 		if ("" === f) {
 			f = "black";
@@ -1361,24 +1368,6 @@
 
 			}
 		});
-	}
-
-	$["fn"]["colorset"] = function (color, attr) {
-
-		if (undefined === attr) {
-			attr = 'color';
-		}
-
-		color = new xColor(color);
-
-		if (color.success) {
-			color = color["getCSS"]();
-
-			this["each"](function() {
-
-				$(this)["css"](attr, color);
-			});
-		}
 	}
 
 })(jQuery);
