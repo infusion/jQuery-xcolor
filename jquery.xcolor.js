@@ -12,155 +12,154 @@
 
 	// http://www.w3.org/TR/css3-color/#svg-color
 	var color_names = {
-		"transparent": 16777216,
-		"aliceblue": 15792383,
-		"antiquewhite": 16444375,
-		"aqua": 65535,
-		"aquamarine": 8388564,
-		"azure": 15794175,
-		"beige": 16119260,
-		"bisque": 16770244,
-		"black": 0,
-		"blanchedalmond": 16772045,
-		"blue": 255,
-		"blueviolet": 9055202,
-		"brown": 10824234,
-		"burlywood": 14596231,
-		"burntsienna": 15367773,
-		"cadetblue": 6266528,
-		"chartreuse": 8388352,
-		"chocolate": 13789470,
-		"coral": 16744272,
-		"cornflowerblue": 6591981,
-		"cornsilk": 16775388,
-		"crimson": 14423100,
-		"cyan": 65535,
-		"darkblue": 139,
-		"darkcyan": 35723,
-		"darkgoldenrod": 12092939,
-		"darkgray": 11119017,
-		"darkgreen": 25600,
-		"darkgrey": 11119017,
-		"darkkhaki": 12433259,
-		"darkmagenta": 9109643,
-		"darkolivegreen": 5597999,
-		"darkorange": 16747520,
-		"darkorchid": 10040012,
-		"darkred": 9109504,
-		"darksalmon": 15308410,
-		"darkseagreen": 9419919,
-		"darkslateblue": 4734347,
-		"darkslategray": 3100495,
-		"darkslategrey": 3100495,
-		"darkturquoise": 52945,
-		"darkviolet": 9699539,
-		"deeppink": 16716947,
-		"deepskyblue": 49151,
-		"dimgray": 6908265,
-		"dimgrey": 6908265,
-		"dodgerblue": 2003199,
-		"firebrick": 11674146,
-		"floralwhite": 16775920,
-		"forestgreen": 2263842,
-		"fuchsia": 16711935,
-		"gainsboro": 14474460,
-		"ghostwhite": 16316671,
-		"gold": 16766720,
-		"goldenrod": 14329120,
-		"gray": 8421504,
-		"green": 32768,
-		"greenyellow": 11403055,
-		"grey": 8421504,
-		"honeydew": 15794160,
-		"hotpink": 16738740,
-		"indianred": 13458524,
-		"indigo": 4915330,
-		"ivory": 16777200,
-		"khaki": 15787660,
-		"lavender": 15132410,
-		"lavenderblush": 16773365,
-		"lawngreen": 8190976,
-		"lemonchiffon": 16775885,
-		"lightblue": 11393254,
-		"lightcoral": 15761536,
-		"lightcyan": 14745599,
-		"lightgoldenrodyellow": 16448210,
-		"lightgray": 13882323,
-		"lightgreen": 9498256,
-		"lightgrey": 13882323,
-		"lightpink": 16758465,
-		"lightsalmon": 16752762,
-		"lightseagreen": 2142890,
-		"lightskyblue": 8900346,
-		"lightslategray": 7833753,
-		"lightslategrey": 7833753,
-		"lightsteelblue": 11584734,
-		"lightyellow": 16777184,
-		"lime": 65280,
-		"limegreen": 3329330,
-		"linen": 16445670,
-		"magenta": 16711935,
-		"maroon": 8388608,
-		"mediumaquamarine": 6737322,
-		"mediumblue": 205,
-		"mediumorchid": 12211667,
-		"mediumpurple": 9662683,
-		"mediumseagreen": 3978097,
-		"mediumslateblue": 8087790,
-		"mediumspringgreen": 64154,
-		"mediumturquoise": 4772300,
-		"mediumvioletred": 13047173,
-		"midnightblue": 1644912,
-		"mintcream": 16121850,
-		"mistyrose": 16770273,
-		"moccasin": 16770229,
-		"navajowhite": 16768685,
-		"navy": 128,
-		"oldlace": 16643558,
-		"olive": 8421376,
-		"olivedrab": 7048739,
-		"orange": 16753920,
-		"orangered": 16729344,
-		"orchid": 14315734,
-		"palegoldenrod": 15657130,
-		"palegreen": 10025880,
-		"paleturquoise": 11529966,
-		"palevioletred": 14381203,
-		"papayawhip": 16773077,
-		"peachpuff": 16767673,
-		"peru": 13468991,
-		"pink": 16761035,
-		"plum": 14524637,
-		"powderblue": 11591910,
-		"purple": 8388736,
-		"red": 16711680,
-		"rosybrown": 12357519,
-		"royalblue": 4286945,
-		"saddlebrown": 9127187,
-		"salmon": 16416882,
-		"sandybrown": 16032864,
-		"seagreen": 3050327,
-		"seashell": 16774638,
-		"sienna": 10506797,
-		"silver": 12632256,
-		"skyblue": 8900331,
-		"slateblue": 6970061,
-		"slategray": 7372944,
-		"slategrey": 7372944,
-		"snow": 16775930,
-		"springgreen": 65407,
-		"steelblue": 4620980,
-		"tan": 13808780,
-		"teal": 32896,
-		"thistle": 14204888,
-		"tomato": 16737095,
-		"turquoise": 4251856,
-		"violet": 15631086,
-		"wheat": 16113331,
-		"white": 16777215,
-		"whitesmoke": 16119285,
-		"yellow": 16776960,
-		"yellowgreen": 10145074
+		"aliceblue": "f0f8ff",
+		"antiquewhite": "faebd7",
+		"aqua": "0ff",
+		"aquamarine": "7fffd4",
+		"azure": "f0ffff",
+		"beige": "f5f5dc",
+		"bisque": "ffe4c4",
+		"black": "000",
+		"blanchedalmond": "ffebcd",
+		"blue": "00f",
+		"blueviolet": "8a2be2",
+		"brown": "a52a2a",
+		"burlywood": "deb887",
+		"burntsienna": "ea7e5d",
+		"cadetblue": "5f9ea0",
+		"chartreuse": "7fff00",
+		"chocolate": "d2691e",
+		"coral": "ff7f50",
+		"cornflowerblue": "6495ed",
+		"cornsilk": "fff8dc",
+		"crimson": "dc143c",
+		"cyan": "0ff",
+		"darkblue": "00008b",
+		"darkcyan": "008b8b",
+		"darkgoldenrod": "b8860b",
+		"darkgray": "a9a9a9",
+		"darkgreen": "006400",
+		"darkgrey": "a9a9a9",
+		"darkkhaki": "bdb76b",
+		"darkmagenta": "8b008b",
+		"darkolivegreen": "556b2f",
+		"darkorange": "ff8c00",
+		"darkorchid": "9932cc",
+		"darkred": "8b0000",
+		"darksalmon": "e9967a",
+		"darkseagreen": "8fbc8f",
+		"darkslateblue": "483d8b",
+		"darkslategray": "2f4f4f",
+		"darkslategrey": "2f4f4f",
+		"darkturquoise": "00ced1",
+		"darkviolet": "9400d3",
+		"deeppink": "ff1493",
+		"deepskyblue": "00bfff",
+		"dimgray": "696969",
+		"dimgrey": "696969",
+		"dodgerblue": "1e90ff",
+		"firebrick": "b22222",
+		"floralwhite": "fffaf0",
+		"forestgreen": "228b22",
+		"fuchsia": "f0f",
+		"gainsboro": "dcdcdc",
+		"ghostwhite": "f8f8ff",
+		"gold": "ffd700",
+		"goldenrod": "daa520",
+		"gray": "808080",
+		"green": "008000",
+		"greenyellow": "adff2f",
+		"grey": "808080",
+		"honeydew": "f0fff0",
+		"hotpink": "ff69b4",
+		"indianred": "cd5c5c",
+		"indigo": "4b0082",
+		"ivory": "fffff0",
+		"khaki": "f0e68c",
+		"lavender": "e6e6fa",
+		"lavenderblush": "fff0f5",
+		"lawngreen": "7cfc00",
+		"lemonchiffon": "fffacd",
+		"lightblue": "add8e6",
+		"lightcoral": "f08080",
+		"lightcyan": "e0ffff",
+		"lightgoldenrodyellow": "fafad2",
+		"lightgray": "d3d3d3",
+		"lightgreen": "90ee90",
+		"lightgrey": "d3d3d3",
+		"lightpink": "ffb6c1",
+		"lightsalmon": "ffa07a",
+		"lightseagreen": "20b2aa",
+		"lightskyblue": "87cefa",
+		"lightslategray": "789",
+		"lightslategrey": "789",
+		"lightsteelblue": "b0c4de",
+		"lightyellow": "ffffe0",
+		"lime": "0f0",
+		"limegreen": "32cd32",
+		"linen": "faf0e6",
+		"magenta": "f0f",
+		"maroon": "800000",
+		"mediumaquamarine": "66cdaa",
+		"mediumblue": "0000cd",
+		"mediumorchid": "ba55d3",
+		"mediumpurple": "9370db",
+		"mediumseagreen": "3cb371",
+		"mediumslateblue": "7b68ee",
+		"mediumspringgreen": "00fa9a",
+		"mediumturquoise": "48d1cc",
+		"mediumvioletred": "c71585",
+		"midnightblue": "191970",
+		"mintcream": "f5fffa",
+		"mistyrose": "ffe4e1",
+		"moccasin": "ffe4b5",
+		"navajowhite": "ffdead",
+		"navy": "000080",
+		"oldlace": "fdf5e6",
+		"olive": "808000",
+		"olivedrab": "6b8e23",
+		"orange": "ffa500",
+		"orangered": "ff4500",
+		"orchid": "da70d6",
+		"palegoldenrod": "eee8aa",
+		"palegreen": "98fb98",
+		"paleturquoise": "afeeee",
+		"palevioletred": "db7093",
+		"papayawhip": "ffefd5",
+		"peachpuff": "ffdab9",
+		"peru": "cd853f",
+		"pink": "ffc0cb",
+		"plum": "dda0dd",
+		"powderblue": "b0e0e6",
+		"purple": "800080",
+		"red": "f00",
+		"rosybrown": "bc8f8f",
+		"royalblue": "4169e1",
+		"saddlebrown": "8b4513",
+		"salmon": "fa8072",
+		"sandybrown": "f4a460",
+		"seagreen": "2e8b57",
+		"seashell": "fff5ee",
+		"sienna": "a0522d",
+		"silver": "c0c0c0",
+		"skyblue": "87ceeb",
+		"slateblue": "6a5acd",
+		"slategray": "708090",
+		"slategrey": "708090",
+		"snow": "fffafa",
+		"springgreen": "00ff7f",
+		"steelblue": "4682b4",
+		"tan": "d2b48c",
+		"teal": "008080",
+		"thistle": "d8bfd8",
+		"tomato": "ff6347",
+		"turquoise": "40e0d0",
+		"violet": "ee82ee",
+		"wheat": "f5deb3",
+		"white": "fff",
+		"whitesmoke": "f5f5f5",
+		"yellow": "ff0",
+		"yellowgreen": "9acd32"
 	}, _RGBAtoCSS;
 
 	/**
@@ -204,7 +203,7 @@
 			}
 
 			if (n < 1 || 1 === s) {
-				if (m === 1) {
+				if (1 === m) {
 					return n;
 				} else {
 					return (n * m) | 0;
@@ -279,7 +278,7 @@
 
 			this.success = true;
 
-			if (typeof color === "number") {
+			if ("number" === typeof color) {
 
 				this["a"] =((color >> 24) & 0xff) / 255;
 				this["r"] = (color >> 16) & 0xff;
@@ -288,7 +287,7 @@
 				return;
 			}
 
-			while (typeof color === "object") {
+			while ("object" === typeof color) {
 
 				if (0 in color && 1 in color && 2 in color) {
 					this["a"] = _normalize(color[3], 1);
@@ -325,112 +324,98 @@
 				break;
 			}
 
-			if (typeof color !== "string") {
-				this.success = false;
-				return;
-			}
+			if ("string" === typeof color) {
 
-			color = color.toLowerCase().replace(/[^a-z0-9,.()#%]/g, '');
+				color = color.toLowerCase().replace(/[^a-z0-9,.()#%]/g, '');
 
-			var part, c;
+				var part, c;
 
-			if (color in color_names) {
-
-				c = color_names[color];
-
-				this["a"] =(!((c >> 24) & 0xff))|0;
-				this["r"] =  ((c >> 16) & 0xff);
-				this["g"] =  ((c >>  8) & 0xff);
-				this["b"] =  ((c      ) & 0xff);
-				return;
-			}
-
-			if ('rand' === color) {
-
-				c = Math.random() * 0xffffff|0;
-
-				this["a"] = 1;
-				this["r"] =  ((c >> 16) & 0xff);
-				this["g"] =  ((c >>  8) & 0xff);
-				this["b"] =  ((c      ) & 0xff);
-				return;
-			}
-
-			// 53892983
-			if ((part = /^([1-9]\d*)$/.exec(color))) {
-
-				c = parseInt(part[1], 10);
-
-				this["a"] =(((c >> 24) & 0xff) || 255) / 255;
-				this["r"] = ((c >> 16) & 0xff);
-				this["g"] = ((c >>  8) & 0xff);
-				this["b"] = ((c      ) & 0xff);
-				return;
-			}
-
-			// #ff9000, #ff0000
-			if ((part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color))) {
-				this["a"] = 1;
-				this["r"] = parseInt(part[1], 16);
-				this["g"] = parseInt(part[2], 16);
-				this["b"] = parseInt(part[3], 16);
-				return;
-			}
-
-			// #f00, fff
-			if ((part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color))) {
-				this["a"] = 1;
-				this["r"] = parseInt(part[1] + part[1], 16);
-				this["g"] = parseInt(part[2] + part[2], 16);
-				this["b"] = parseInt(part[3] + part[3], 16);
-				return;
-			}
-
-			// rgb(1, 234, 56)
-			if ((part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
-				this["a"] = _normalize(part[5], 1);
-				this["r"] = _normalize(part[1]);
-				this["g"] = _normalize(part[2]);
-				this["b"] = _normalize(part[3]);
-				return;
-			}
-
-			// rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
-			if ((part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color))) {
-				this["a"] = _normalize(part[5], 1);
-				this["r"] = Math.round(2.55 * _normalize(part[1], 100));
-				this["g"] = Math.round(2.55 * _normalize(part[2], 100));
-				this["b"] = Math.round(2.55 * _normalize(part[3], 100));
-				return;
-			}
-
-			// hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
-			if ((part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
-				var func;
-				if (part[1] === "l") {
-					func = _hsl;
-				} else {
-					func = _hsv;
+				if ('transparent' === color) {
+					this["a"] = /* void */
+					this["r"] = /* void */
+					this["g"] = /* void */
+					this["b"] = 0;
+					return;
 				}
 
-				c = func(parseInt(part[2], 10), parseInt(part[3], 10), parseInt(part[4], 10));
+				if ('rand' === color) {
 
-				this["a"] = _normalize(part[6], 1);
-				this["r"] = c[0];
-				this["g"] = c[1];
-				this["b"] = c[2];
-				return;
+					c = Math.random() * 0xffffff|0;
+
+					this["a"] = 1;
+					this["r"] = ((c >> 16) & 0xff);
+					this["g"] = ((c >>  8) & 0xff);
+					this["b"] = ((c      ) & 0xff);
+					return;
+				}
+
+				if (undefined !== color_names[color]) {
+					color = '#' + color_names[color];
+				}
+
+				// #ff9000, #ff0000
+				if ((part = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/.exec(color))) {
+					this["a"] = 1;
+					this["r"] = parseInt(part[1], 16);
+					this["g"] = parseInt(part[2], 16);
+					this["b"] = parseInt(part[3], 16);
+					return;
+				}
+
+				// #f00, fff
+				if ((part = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/.exec(color))) {
+					this["a"] = 1;
+					this["r"] = parseInt(part[1] + part[1], 16);
+					this["g"] = parseInt(part[2] + part[2], 16);
+					this["b"] = parseInt(part[3] + part[3], 16);
+					return;
+				}
+
+				// rgb(1, 234, 56)
+				if ((part = /^rgba?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
+					this["a"] = _normalize(part[5], 1);
+					this["r"] = _normalize(part[1]);
+					this["g"] = _normalize(part[2]);
+					this["b"] = _normalize(part[3]);
+					return;
+				}
+
+				// rgb(66%, 55%, 44%) in [0,100]%, [0,100]%, [0,100]%
+				if ((part = /^rgba?\(([0-9.]+\%),([0-9.]+\%),([0-9.]+\%)(,([0-9.]+)\%?)?\)$/.exec(color))) {
+					this["a"] = _normalize(part[5], 1);
+					this["r"] = Math.round(2.55 * _normalize(part[1], 100));
+					this["g"] = Math.round(2.55 * _normalize(part[2], 100));
+					this["b"] = Math.round(2.55 * _normalize(part[3], 100));
+					return;
+				}
+
+				// hsv(64, 40, 16) in [0, 360], [0,100], [0,100]
+				if ((part = /^hs([bvl])a?\((\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?\)$/.exec(color))) {
+					var func;
+					if ("l" === part[1]) {
+						func = _hsl;
+					} else {
+						func = _hsv;
+					}
+
+					c = func(parseInt(part[2], 10), parseInt(part[3], 10), parseInt(part[4], 10));
+
+					this["a"] = _normalize(part[6], 1);
+					this["r"] = c[0];
+					this["g"] = c[1];
+					this["b"] = c[2];
+					return;
+				}
+
+				// 1, 234, 56
+				if ((part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color))) {
+					this["a"] = _normalize(part[5], 1);
+					this["r"] = _normalize(part[1]);
+					this["g"] = _normalize(part[2]);
+					this["b"] = _normalize(part[3]);
+					return;
+				}
 			}
-
-			// 1, 234, 56
-			if ((part = /^(\d{1,3}),(\d{1,3}),(\d{1,3})(,([0-9.]+))?$/.exec(color))) {
-				this["a"] = _normalize(part[5], 1);
-				this["r"] = _normalize(part[1]);
-				this["g"] = _normalize(part[2]);
-				this["b"] = _normalize(part[3]);
-				return;
-			}
-
 			this.success = false;
 		}
 
@@ -685,7 +670,7 @@
 
 			if (undefined === fx["xinit"]) {
 
-				if (typeof fx["end"] === "string" && -1 !== fx["end"].indexOf(";")) {
+				if ("string" === typeof fx["end"] && -1 !== fx["end"].indexOf(";")) {
 
 					var x, arr = fx["end"].split(";");
 
@@ -1311,7 +1296,7 @@
 
 		if (!TYPE) {
 			TYPE = 0;
-		} else if (TYPE !== 1) {
+		} else if (1 !== TYPE) {
 			return;
 		}
 
@@ -1351,20 +1336,22 @@
 
 								if (t) {
 
-									if(c !== ' ') diff =!diff;
+									if(" " !== c) diff =!diff;
 
-									elem["style"]["color"] = 'rgb('
-									+(diff ? x["r"] : y["r"])+','
-									+(diff ? x["g"] : y["g"])+','
-									+(diff ? x["b"] : y["b"])+')';
+									elem["style"]["color"] = diff
+										? _RGBAtoCSS(x["r"], x["g"], x["b"], x["a"])
+										: _RGBAtoCSS(y["r"], y["g"], y["b"], y["a"]);
+
 								} else {
 
 									diff = K / l;
 
-									elem["style"]["color"] = 'rgb('
-									+((x["r"] + (y["r"] - x["r"]) * diff)|0)+','
-									+((x["g"] + (y["g"] - x["g"]) * diff)|0)+','
-									+((x["b"] + (y["b"] - x["b"]) * diff)|0)+')';
+									elem["style"]["color"] =_RGBAtoCSS(
+										x["r"] + diff * (y["r"] - x["r"])|0,
+										x["g"] + diff * (y["g"] - x["g"])|0,
+										x["b"] + diff * (y["b"] - x["b"])|0,
+										x["a"] + diff * (y["a"] - x["a"])
+									);
 								}
 
 								elem.appendChild(document.createTextNode(
