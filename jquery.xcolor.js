@@ -160,7 +160,7 @@
 		"whitesmoke": 16119285,
 		"yellow": 16776960,
 		"yellowgreen": 10145074
-	};
+	}, _RGBAtoCSS;
 
 	/**
 	 * @constructor
@@ -476,10 +476,14 @@
 
 			if (this.success) {
 
-				if (this["a"] == 1) {
+				if (0 === this["a"]) {
+					return "transparent";
+				}
+
+				if (1 === this["a"]) {
 					return 'rgb(' + this["r"] + ',' + this["g"] + ',' + this["b"] + ')';
 				}
-				return 'rgba(' + this["r"] + ',' + this["g"] + ',' + this["b"] + ',' + this["a"] + ')';
+				return _RGBAtoCSS(this["r"], this["g"], this["b"], this["a"]);
 			}
 			return null;
 		}
@@ -712,23 +716,35 @@
 			var P = fx["pos"];
 
 			if (null === S) {
-				var m = P * (E.length - 1), n = P < 1 ? m | 0 : E.length - 2;
+				var m = P * (E.length - 1),
+				    n = P < 1 ? m | 0 : E.length - 2;
 				S = E[n];
 				E = E[n + 1];
 				P = m - n;
 			}
 
-			if ($["support"]["opacity"]) {
-				fx["elem"]["style"][attr] = "rgba("
-				+ ((S["r"] + (E["r"] - S["r"]) * P)|0) + ","
-				+ ((S["g"] + (E["g"] - S["g"]) * P)|0) + ","
-				+ ((S["b"] + (E["b"] - S["b"]) * P)|0) + ","
-				+ ((S["a"] + (E["a"] - S["a"]) * P)) + ")";
-			} else {
-				fx["elem"]["style"][attr] = "rgb("
-				+ ((S["r"] + (E["r"] - S["r"]) * P)|0) + ","
-				+ ((S["g"] + (E["g"] - S["g"]) * P)|0) + ","
-				+ ((S["b"] + (E["b"] - S["b"]) * P)|0) + ")";
+			fx["elem"]["style"][attr] = _RGBAtoCSS(
+				S.r + P * (E.r - S.r)|0,
+				S.g + P * (E.g - S.g)|0,
+				S.b + P * (E.b - S.b)|0,
+				S.a + P * (E.a - S.a)
+			);
+		}
+	});
+
+	$(function() {
+		var div = document.createElement("div"),
+			div_style = div["style"];
+
+		_RGBAtoCSS = function(r, g, b, a) {
+			return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+		}
+
+		div_style["cssText"] = "background-color:rgba(1,1,1,.5)";
+
+		if (!($["support"]["rgba"] = div_style["backgroundColor"].indexOf("rgba") > -1)) {
+			_RGBAtoCSS = function(r, g, b) {
+				return "rgb(" + r + "," + g + "," + b + ")";
 			}
 		}
 	});
@@ -746,7 +762,7 @@
 
 		if ("" === color) {
 
-			if ($["support"]["opacity"]) {
+			if ($["support"]["rgba"]) {
 				color = "transparent";
 			} else if ("backgroundColor" === attr) {
 				color = "white";
