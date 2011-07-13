@@ -219,7 +219,7 @@
 			l = _normalize(l, 1);
 
 			if (0 === s) {
-				l = Math.round(l * 255);
+				l = Math.round(255 * l);
 				return [l, l, l];
 			}
 
@@ -250,27 +250,25 @@
 			var hi = h|0;
 			var f = h - hi;
 
-			f = (h & 1) ? f : 1 - f;
+			var p = Math.round(255 * v * (1 - s));
+			var q = Math.round(255 * v * (1 - s * f));
+			var t = Math.round(255 * v * (1 - s * (1 - f)));
+				v = Math.round(255 * v);
 
-			var m = Math.round(255 * (v * (1 - s)));
-			var n = Math.round(255 * (v * (1 - s * f)));
-
-			v = Math.round(255 * v);
-
-			switch (hi) {
-				case 6:
-				case 0:
-					return [v, n, m];
-				case 1:
-					return [n, v, m];
-				case 2:
-					return [m, v, n];
-				case 3:
-					return [m, n, v];
-				case 4:
-					return [n, m, v];
-				case 5:
-					return [v, m, n];
+			switch(hi) {
+			case 0:
+			case 6:
+				return [v, t, p];
+			case 1:
+				return [q, v, p];
+			case 2:
+				return [p, v, t];
+			case 3:
+				return [p, q, v];
+			case 4:
+				return [t, p, v];
+			case 5:
+				return [v, p, q];
 			}
 		}
 
@@ -477,7 +475,7 @@
 		this["getArray"] = function () {
 
 			if (this.success) {
-				return [this["r"], this["g"], this["b"], this["a"] * 100 | 0];
+				return [this["r"], this["g"], this["b"], 100 * this["a"]|0];
 			}
 			return null;
 		}
@@ -558,9 +556,9 @@
 					s = delta / (l < .5 ? max + min : 2 - max - min);
 				}
 				return {
-					"h": Math.round(h * 60),
-					"s": Math.round(s * 100),
-					"l": Math.round(l * 100),
+					"h": Math.round( 60 * h),
+					"s": Math.round(100 * s),
+					"l": Math.round(100 * l),
 					"a": this["a"]
 				};
 			}
@@ -575,39 +573,48 @@
 				var g = this["g"] / 255;
 				var b = this["b"] / 255;
 
+				/*
+				if (r > g) {
+					max = r;
+					min = g;
+				} else {
+					min = r;
+					max = g;
+				}
+
+				if (b > max)
+					max = b;
+
+				if (b < min)
+					min = b;
+				*/
+
 				var min = Math.min(r, g, b);
 				var max = Math.max(r, g, b);
 				var delta = max - min;
 
 				var h, s, v = max;
 
-				if (0 === delta) {
-					h = 0;
+				if (0 === max) {
 					s = 0;
 				} else {
 					s = delta / max;
+				}
 
-					delta*= 6;
-
-					var dR = .5 + (max - r) / delta;
-					var dG = .5 + (max - g) / delta;
-					var dB = .5 + (max - b) / delta;
-
-					if (r === max) {
-						h = dB - dG;
-					} else if (g === max) {
-						h = 1 / 3 + dR - dB;
-					} else if (b === max) {
-						h = 2 / 3 + dG - dR;
-					}
-
-					h = ++h % 1;
+				if (0 === delta) {
+					h = 0;
+				} else if (r === max) {
+					h = (g - b) / delta;
+				} else if (g === max) {
+					h = 2 + (b - r) / delta;
+				} else {
+					h = 4 + (r - g) / delta;
 				}
 
 				return {
-					"h": Math.round(h * 360),
-					"s": Math.round(s * 100),
-					"v": Math.round(v * 100),
+					"h": Math.round( 60 * ((6 + h) % 6)),
+					"s": Math.round(100 * s),
+					"v": Math.round(100 * v),
 					"a": this["a"]
 				};
 			}
@@ -643,7 +650,7 @@
 
 			if (this.success) {
 				if (undefined !== alpha) {
-					return ((this["a"] * 100 | 0) << 24 ^ this["r"] << 16 ^ this["g"] << 8 ^ this["b"]);
+					return ((100 * this["a"]|0) << 24 ^ this["r"] << 16 ^ this["g"] << 8 ^ this["b"]);
 				}
 				return (this["r"] << 16 ^ this["g"] << 8 ^ this["b"]) & 0xffffff;
 			}
@@ -1374,4 +1381,4 @@
 		});
 	}
 
-})(jQuery);
+}(jQuery));
