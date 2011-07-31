@@ -1,11 +1,9 @@
 /**
- * @license jQuery xcolor plugin v1.8
+ * @license jQuery paging plugin v1.8 06/21/2010
  * http://www.xarg.org/project/jquery-color-plugin-xcolor/
  *
  * Copyright (c) 2010, Robert Eisele (robert@xarg.org)
  * Dual licensed under the MIT or GPL Version 2 licenses.
- *
- * Date: 06/21/2010
  **/
 // ([^a-z."/])m([^a-z:"])
 (function ($) {
@@ -546,17 +544,14 @@
 						h = (g - b) / delta;
 					} else if (g === max) {
 						h = 2 + (b - r) / delta;
-					} else if (b === max) {
+					} else {
 						h = 4 + (r - g) / delta;
 					}
 
-					if (h < 0) {
-						h+= 6;
-					}
 					s = delta / (l < .5 ? max + min : 2 - max - min);
 				}
 				return {
-					"h": Math.round( 60 * h),
+					"h": Math.round( 60 * ((6 + h) % 6)),
 					"s": Math.round(100 * s),
 					"l": Math.round(100 * l),
 					"a": this["a"]
@@ -1301,10 +1296,30 @@
 
 	$["fn"]["colorize"] = function (FROM, TO, TYPE) {
 
-		if (!TYPE) {
-			TYPE = 0;
-		} else if (1 !== TYPE) {
+		var modifiers = {
+
+			// Returns number in [0, 1] (0 = FROM, 1 = TO)
+
+			"gradient": function (k, l, diff, c) {
+				return k / l;
+			},
+			"flip": function (k, l, diff, c) {
+				return (" " === c) ? diff : !diff;
+			},
+			"pillow": function (k, l, diff, c) {
+				k*= 2;
+				return (k <= l)
+					?	(k / l)
+					:	(2 - k / l);
+			}
+		};
+
+		if ("function" === typeof TYPE) {
+			/* void */
+		} else if (void 0 === modifiers[TYPE]) {
 			return;
+		} else {
+			TYPE = modifiers[TYPE];
 		}
 
 		FROM = new xColor(FROM);
@@ -1330,36 +1345,24 @@
 							var x = FROM;
 							var y = TO;
 							var l = LEN;
-							var t = TYPE;
-							var elem, ctx, diff = 0, c;
+							var elem, ctx, diff = 0, c, calc = TYPE;
 
 							len = node.nodeValue.length;
 							ctx = document.createElement('span');
 
-							for (i=0; i<len; ++i) {
+							for (i = 0; i < len; ++i) {
 
 								elem = document.createElement('span');
 								c    = node.nodeValue.charAt(i);
 
-								if (t) {
+								diff = calc(K, l, diff, c);
 
-									if(" " !== c) diff =!diff;
-
-									elem["style"]["color"] = diff
-										? _RGBAtoCSS(x["r"], x["g"], x["b"], x["a"])
-										: _RGBAtoCSS(y["r"], y["g"], y["b"], y["a"]);
-
-								} else {
-
-									diff = K / l;
-
-									elem["style"]["color"] =_RGBAtoCSS(
-										x["r"] + diff * (y["r"] - x["r"])|0,
-										x["g"] + diff * (y["g"] - x["g"])|0,
-										x["b"] + diff * (y["b"] - x["b"])|0,
-										x["a"] + diff * (y["a"] - x["a"])
-									);
-								}
+								elem["style"]["color"] =_RGBAtoCSS(
+									x["r"] + diff * (y["r"] - x["r"])|0,
+									x["g"] + diff * (y["g"] - x["g"])|0,
+									x["b"] + diff * (y["b"] - x["b"])|0,
+									x["a"] + diff * (y["a"] - x["a"])
+								);
 
 								elem.appendChild(document.createTextNode(
 											c
