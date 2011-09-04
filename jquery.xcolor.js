@@ -6,7 +6,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  **/
 // ([^a-z."/])m([^a-z:"])
-(function ($) {
+(function ($, undefined) {
 
 	// http://www.w3.org/TR/css3-color/#svg-color
 	var color_names = {
@@ -1333,7 +1333,7 @@
 
 			if (FROM.success & TO.success) {
 
-				for (i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
+				for (var i = tmp.length; i--; LEN+= tmp[i]["textContent"].length){}
 
 				(function replace(node) {
 
