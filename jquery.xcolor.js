@@ -1097,25 +1097,15 @@
 			return null;
 		}
 
-		this["gradientarray"] = function (arr, ndx, size) {
-
-			if (ndx > size) return null;
-
-			var e = (ndx * (arr.length - 1) / size)|0;
-			var m = (ndx - size * e / (arr.length - 1)) / size;
-
-			var a = new xColor(arr[e]);
-			var b = new xColor(arr[e + 1]);
-
-			if (a.success & b.success) {
-
-				a["r"] = (a["r"] + arr.length * (b["r"] - a["r"]) * m)|0;
-				a["g"] = (a["g"] + arr.length * (b["g"] - a["g"]) * m)|0;
-				a["b"] = (a["b"] + arr.length * (b["b"] - a["b"]) * m)|0;
-
-				return a;
+		this["gradientarray"] = function (arr, level, deg, debug) {
+			var step = deg / (arr.length - 1)
+			var step_level = level % step
+			var current_step = (level - step_level)/step
+			if(step_level == 0 && level != 0){
+				step_level = step
+				current_step -= 1
 			}
-			return null;
+			return $.xcolor.gradientlevel(arr[current_step],arr[current_step + 1],step_level,step);
 		}
 
 		this["nearestname"] = function (a) {
