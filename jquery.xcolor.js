@@ -923,16 +923,24 @@
 			return null;
 		}
 
-		this["readable"] = function (bg, col) {
+		this["readable"] = function (bg, col, size) {
+
+			// good ressource: http://www.hgrebdes.com/colour/spectrum/colourvisibility.html
 
 			var a = new xColor(col);
 			var b = new xColor(bg);
 
+			size = size || 10;
+
 			if (a.success & b.success) {
-				return (
-					(b["r"] - a["r"]) * (b["r"] - a["r"]) +
-					(b["g"] - a["g"]) * (b["g"] - a["g"]) +
-					(b["b"] - a["b"]) * (b["b"] - a["b"])) > 0x28A4;
+
+				// but here's my version based on the idea:
+
+				var diff = b["r"] * 0.299 + b["g"] * 0.587 + b["b"] * 0.114 -
+						   a["r"] * 0.299 - a["g"] * 0.587 - a["b"] * 0.114;
+
+				return !((diff < (1.5 + 141.162 * Math.pow(0.975, size)))
+					  && (diff > (-.5 - 154.709 * Math.pow(0.990, size))));
 			}
 			return null;
 		}
