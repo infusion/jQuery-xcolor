@@ -254,9 +254,6 @@
 				v = Math.round(255 * v);
 
 			switch(hi) {
-			case 0:
-			case 6:
-				return [v, t, p];
 			case 1:
 				return [q, v, p];
 			case 2:
@@ -268,6 +265,7 @@
 			case 5:
 				return [v, p, q];
 			}
+			return [v, t, p];
 		}
 
 		this["setColor"] = function (color) {
@@ -413,7 +411,7 @@
 				}
 			}
 			this.success = false;
-		}
+		};
 
 		this["getColor"] = function (type) {
 
@@ -438,7 +436,7 @@
 					return this["getName"]();
 			}
 			return this["getHex"]();
-		}
+		};
 
 		this["getRGB"] = function () {
 
@@ -452,7 +450,7 @@
 				};
 			}
 			return null;
-		}
+		};
 
 		this["getCSS"] = function () {
 
@@ -468,7 +466,7 @@
 				return _RGBAtoCSS(this["r"], this["g"], this["b"], this["a"]);
 			}
 			return null;
-		}
+		};
 
 		this["getArray"] = function () {
 
@@ -476,7 +474,7 @@
 				return [this["r"], this["g"], this["b"], 100 * this["a"]|0];
 			}
 			return null;
-		}
+		};
 
 		this["getName"] = function () {
 
@@ -504,7 +502,7 @@
 				return lowest_ndx;
 			}
 			return null;
-		}
+		};
 
 		this["getFraction"] = function () {
 
@@ -518,7 +516,7 @@
 				};
 			}
 			return null;
-		}
+		};
 
 		this["getHSL"] = function () {
 
@@ -558,7 +556,7 @@
 				};
 			}
 			return null;
-		}
+		};
 
 		this["getHSV"] = function () {
 
@@ -614,7 +612,7 @@
 				};
 			}
 			return null;
-		}
+		};
 
 		this["getHex"] = function () {
 
@@ -634,12 +632,12 @@
 					return '#' + chars.charAt(r1) + chars.charAt(g1) + chars.charAt(b1);
 				}
 				return '#'
-				+ chars.charAt(r1) + chars.charAt(r2)
-				+ chars.charAt(g1) + chars.charAt(g2)
-				+ chars.charAt(b1) + chars.charAt(b2);
+					+ chars.charAt(r1) + chars.charAt(r2)
+					+ chars.charAt(g1) + chars.charAt(g2)
+					+ chars.charAt(b1) + chars.charAt(b2);
 			}
 			return null;
-		}
+		};
 
 		this["getInt"] = function (alpha) {
 
@@ -650,11 +648,11 @@
 				return (this["r"] << 16 ^ this["g"] << 8 ^ this["b"]) & 0xffffff;
 			}
 			return null;
-		}
+		};
 
 		this["toString"] = function () {
 			return this["getHex"]();
-		}
+		};
 
 		this["setColor"](color);
 	}
@@ -711,7 +709,7 @@
 				P = m - n;
 			}
 
-			fx["elem"]["style"][attr] = _RGBAtoCSS(
+			fx["elem"]["style"][attr] =_RGBAtoCSS(
 				S["r"] + P * (E["r"] - S["r"])|0,
 				S["g"] + P * (E["g"] - S["g"])|0,
 				S["b"] + P * (E["b"] - S["b"])|0,
@@ -726,14 +724,14 @@
 
 		_RGBAtoCSS = function(r, g, b, a) {
 			return "rgba(" + r + "," + g + "," + b + "," + a + ")";
-		}
+		};
 
 		div_style["cssText"] = "background-color:rgba(1,1,1,.5)";
 
 		if (!($["support"]["rgba"] = div_style["backgroundColor"].indexOf("rgba") > -1)) {
 			_RGBAtoCSS = function(r, g, b) {
 				return "rgb(" + r + "," + g + "," + b + ")";
-			}
+			};
 		}
 	});
 
@@ -1300,7 +1298,7 @@
 
 		// todo: if alpha != 1, use opacity() to calculate correct color on certain element and it's parent
 		return $["xcolor"]["readable"](b, f);
-	}
+	};
 
 	$["fn"]["colorize"] = function (FROM, TO, TYPE) {
 
@@ -1390,6 +1388,6 @@
 
 			}
 		});
-	}
+	};
 
 }(jQuery));
