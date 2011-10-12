@@ -774,7 +774,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["red"] = function (col) {
 
@@ -786,7 +786,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["blue"] = function (col) {
 
@@ -798,7 +798,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["green"] = function (col) {
 
@@ -810,7 +810,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["sepia"] = function(col) {
 
@@ -828,7 +828,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["random"] = function () {
 
@@ -837,7 +837,7 @@
 				(255 * Math.random())|0,
 				(255 * Math.random())|0
 				]);
-		}
+		};
 
 		this["inverse"] = function (col) {
 
@@ -850,7 +850,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["opacity"] = function (x, y, o) {
 
@@ -872,7 +872,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["greyfilter"] = function (col, formula) {
 
@@ -896,7 +896,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["webround"] = function (col) {
 
@@ -909,7 +909,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["distance"] = function (x, y) {
 
@@ -921,21 +921,29 @@
 				return Math.sqrt(3 * (b["r"] - a["r"]) * (b["r"] - a["r"]) + 4 * (b["g"] - a["g"]) * (b["g"] - a["g"]) + 2 * (b["b"] - a["b"]) * (b["b"] - a["b"]));
 			}
 			return null;
-		}
+		};
 
-		this["readable"] = function (bg, col) {
+		this["readable"] = function (bg, col, size) {
+
+			// good ressource: http://www.hgrebdes.com/colour/spectrum/colourvisibility.html
 
 			var a = new xColor(col);
 			var b = new xColor(bg);
 
+			size = size || 10;
+
 			if (a.success & b.success) {
-				return (
-					(b["r"] - a["r"]) * (b["r"] - a["r"]) +
-					(b["g"] - a["g"]) * (b["g"] - a["g"]) +
-					(b["b"] - a["b"]) * (b["b"] - a["b"])) > 0x28A4;
+
+				// but here's my version based on the idea:
+
+				var diff = b["r"] * 0.299 + b["g"] * 0.587 + b["b"] * 0.114 -
+						   a["r"] * 0.299 - a["g"] * 0.587 - a["b"] * 0.114;
+
+				return !((diff < (1.5 + 141.162 * Math.pow(0.975, size)))
+					  && (diff > (-.5 - 154.709 * Math.pow(0.990, size))));
 			}
 			return null;
-		}
+		};
 
 		this["combine"] = function (x, y) {
 
@@ -949,7 +957,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["breed"] = function (x, y) {
 
@@ -972,7 +980,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["additive"] = function (x, y) {
 
@@ -988,7 +996,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["subtractive"] = function (x, y) {
 
@@ -1004,7 +1012,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["subtract"] = function (x, y) {
 
@@ -1020,7 +1028,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["multiply"] = function (x, y) {
 
@@ -1034,7 +1042,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["average"] = function (x, y) {
 
@@ -1048,7 +1056,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["triad"] = function (col) {
 
@@ -1061,7 +1069,7 @@
 				new xColor([c["g"], c["b"], c["r"]])];
 			}
 			return null;
-		}
+		};
 
 		this["tetrad"] = function (col) {
 
@@ -1075,7 +1083,7 @@
 				new xColor([c["r"], c["b"], c["r"]])];
 			}
 			return null;
-		}
+		};
 
 		this["gradientlevel"] = function (x, y, level, deg) {
 
@@ -1095,7 +1103,7 @@
 				return a;
 			}
 			return null;
-		}
+		};
 
 		this["gradientarray"] = function (arr, level, deg, debug) {
 			var step = deg / (arr.length - 1)
@@ -1116,7 +1124,7 @@
 				return a["getName"]();
 			}
 			return null;
-		}
+		};
 
 		this["darken"] = function (col, by, shade) {
 
@@ -1137,7 +1145,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["lighten"] = function (col, by, shade) {
 
@@ -1158,7 +1166,7 @@
 				return c;
 			}
 			return null;
-		}
+		};
 
 		this["analogous"] = function (col, results, slices) {
 
@@ -1185,7 +1193,7 @@
 				return ret;
 			}
 			return null;
-		}
+		};
 
 		this["complementary"] = function(col) {
 
@@ -1200,7 +1208,7 @@
 				return new xColor(hsl);
 			}
 			return null;
-		}
+		};
 
 		this["splitcomplement"] = function (col) {
 
@@ -1222,7 +1230,7 @@
 				return ret;
 			}
 			return null;
-		}
+		};
 
 		this["monochromatic"] = function (col, results) {
 
@@ -1245,7 +1253,7 @@
 				return ret;
 			}
 			return null;
-		}
+		};
 	}
 
 	$["xcolor"] = new xColorMix();
