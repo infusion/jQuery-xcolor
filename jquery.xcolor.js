@@ -1103,25 +1103,18 @@
 			return null;
 		};
 
-		this["gradientarray"] = function (arr, ndx, size) {
+		this["gradientarray"] = function(arr, level, deg) {
 
-			if (ndx > size) return null;
+			if (level > deg || !arr.length) return null;
 
-			var e = (ndx * (arr.length - 1) / size)|0;
-			var m = (ndx - size * e / (arr.length - 1)) / size;
-
-			var a = new xColor(arr[e]);
-			var b = new xColor(arr[e + 1]);
-
-			if (a.success & b.success) {
-
-				a["r"] = (a["r"] + arr.length * (b["r"] - a["r"]) * m)|0;
-				a["g"] = (a["g"] + arr.length * (b["g"] - a["g"]) * m)|0;
-				a["b"] = (a["b"] + arr.length * (b["b"] - a["b"]) * m)|0;
-
-				return a;
+			if (arr.length == 1) {
+				return new xColor(arr[0]);
 			}
-			return null;
+
+			var e = level * (arr.length - 1) / (deg + 1) | 0;
+			var step = deg / (arr.length - 1);
+
+			return $["xcolor"]["gradientlevel"](arr[e], arr[e + 1], level - e * step, step);
 		};
 
 		this["nearestname"] = function (a) {
