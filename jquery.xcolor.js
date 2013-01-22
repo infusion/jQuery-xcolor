@@ -740,7 +740,7 @@
 		var color = "";
 
 		do {
-			color = $["curCSS"](elem, attr);
+			color = $["css"](elem, attr);
 
 			if ("" !== color && "transparent" !== color && "rgba(0, 0, 0, 0)" !== color || $["nodeName"](elem, "body")) break;
 
@@ -1267,11 +1267,11 @@
 
 		do {
 
-			if ("" === f && ("transparent" === (f = $["curCSS"](elem, "color")) || "rgba(0, 0, 0, 0)" === f)) {
+			if ("" === f && ("transparent" === (f = $["css"](elem, "color")) || "rgba(0, 0, 0, 0)" === f)) {
 				f = "";
 			}
 
-			if ("" === b && ("transparent" === (b = $["curCSS"](elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" === b)) {
+			if ("" === b && ("transparent" === (b = $["css"](elem, "backgroundColor")) || "rgba(0, 0, 0, 0)" === b)) {
 				b = "";
 			}
 
