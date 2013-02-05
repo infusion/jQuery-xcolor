@@ -628,9 +628,6 @@
 				var g2 = this["g"] & 0xf;
 				var b2 = this["b"] & 0xf;
 
-				if (0 === ((r1 ^ r2) | (g1 ^ g2) | (b1 ^ b2))) {
-					return '#' + chars.charAt(r1) + chars.charAt(g1) + chars.charAt(b1);
-				}
 				return '#'
 					+ chars.charAt(r1) + chars.charAt(r2)
 					+ chars.charAt(g1) + chars.charAt(g2)
