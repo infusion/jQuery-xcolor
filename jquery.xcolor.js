@@ -1,5 +1,5 @@
 /**
- * @license jQuery paging plugin v1.8 06/21/2010
+ * @license jQuery paging plugin v1.8.0 06/21/2010
  * http://www.xarg.org/project/jquery-color-plugin-xcolor/
  *
  * Copyright (c) 2010, Robert Eisele (robert@xarg.org)

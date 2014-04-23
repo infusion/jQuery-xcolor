@@ -1,0 +1,27 @@
+{
+    "name": "xcolor",
+    "main": "jquery.xcolor.js",
+    "version": "1.8.0",
+    "homepage": "http://www.xarg.org/project/jquery-color-plugin-xcolor/",
+    "description": "An easy to use color manipulation plugin for jQuery.",
+    "keywords": [
+        "color",
+        "colors",
+        "text",
+        "ui"
+    ],
+    "authors": [
+        "Robert Eisele <robert@xarg.org>"
+    ],
+    "dependencies": {
+        "jquery": ">=1.5"
+    },
+    "license": [
+        "MIT",
+        "GPL"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/infusion/jQuery-xcolor.git"
+    }
+}
