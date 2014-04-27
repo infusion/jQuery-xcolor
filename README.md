@@ -3,8 +3,7 @@ jQuery xcolor Plugin
 
 Description
 -----------
-The jQuery Paging plugin aims to be simple as possible by a native callback design, which in turn allows to design a pagination navigation in almost every feasible variation.
-
+The jQuery xcolor plugin is an extensive library for color manipulation.
 
 
 
