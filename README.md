@@ -51,4 +51,5 @@ http://www.xarg.org/project/jquery-color-plugin-xcolor/
 
 License
 ======
+Copyright (c) 2014, [Robert Eisele](http://www.xarg.org/)
 Dual licensed under the MIT or GPL Version 2 licenses.
