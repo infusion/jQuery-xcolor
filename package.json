@@ -1,0 +1,26 @@
+{
+  "name": "jquery-xcolor",
+  "version": "1.8.0",
+  "description": "The jQuery xcolor plugin is an extensive library for color manipulation.",
+  "main": "jquery.xcolor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infusion/jQuery-xcolor.git"
+  },
+  "keywords": [
+    "color",
+    "manipulation",
+    "jquery",
+    "xcolor",
+    "color"
+  ],
+  "author": "Robert Eisele <robert@xarg.org>",
+  "license": "SEE LICENSE IN README.md",
+  "bugs": {
+    "url": "https://github.com/infusion/jQuery-xcolor/issues"
+  },
+  "homepage": "https://github.com/infusion/jQuery-xcolor#readme"
+}
